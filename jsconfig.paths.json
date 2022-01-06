@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "jsx": "react",
+      "paths": {
+        "@components/*": [
+          "./src/components/*"
+        ],
+        "@config": [
+          "./config.js"
+        ],
+        "@assets/*": [
+          "./src/assets/*"
+        ],
+        "@api": [
+          "./src/api/index.js"
+        ],
+        "@api/*": [
+          "./src/api/*"
+        ],
+        "@utils": [
+          "./src/utils/index.js"
+        ],
+        "@utils/*": [
+          "./src/utils/*"
+        ],
+        "@redux/*": [
+          "./src/redux/*"
+        ],
+        "@validation/*": [
+          "./src/validation/*"
+        ],
+        "@dictionary/*": [
+          "./src/dictionary/*"
+        ],
+        "@views/*": [
+          "./src/views/*"
+        ],
+        "@pages/*": [
+          "./src/pages/*"
+        ]
+      }
+    },
+    "exclude": ["node_modules", "build"]
+  }

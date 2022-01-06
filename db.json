@@ -1,0 +1,22 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "login": "Alexandr",
+      "isAdmin": true,
+      "password": "admin"
+    },
+    {
+      "login": "Maxim",
+      "password": "admin",
+      "isAdmin": true,
+      "id": 2
+    },
+    {
+      "login": "Maxima",
+      "password": "asdasd",
+      "isAdmin": false,
+      "id": 3
+    }
+  ]
+}

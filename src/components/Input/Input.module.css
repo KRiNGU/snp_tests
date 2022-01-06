@@ -1,0 +1,14 @@
+.input {
+  line-height: 30px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #f4f0e9;
+  background-color: #f9f7f4;
+  padding-left: 10px;
+}
+
+.errorLabel {
+  font-size: 10px;
+  color: red;
+  padding-left: 5px;
+}
