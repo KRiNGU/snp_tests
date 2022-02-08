@@ -1,0 +1,11 @@
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.text {
+  line-height: 50px;
+  width: max-content;
+  margin: 0 auto;
+  margin-top: calc(50vh - 25px);
+}

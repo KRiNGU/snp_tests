@@ -7,7 +7,7 @@
           "./src/components/*"
         ],
         "@config": [
-          "./config.js"
+          "./src/config.js"
         ],
         "@assets/*": [
           "./src/assets/*"

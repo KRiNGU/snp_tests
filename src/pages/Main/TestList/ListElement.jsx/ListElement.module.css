@@ -1,0 +1,72 @@
+:root {
+  --buttonSize: 20px;
+}
+
+.element {
+  margin: 25px 0 0 0;
+  display: flex;
+  list-style: none;
+  padding: 0;
+  border: 1px solid grey;
+  border-radius: 10px;
+  background-color: #f4f0e9;
+}
+
+.elementColumn {
+  padding: 0 5px;
+  line-height: 30px;
+  position: relative;
+  font-size: min(16px, 1.5vw);
+}
+
+.elementColumn:not(:last-child) {
+  border-right: 1px solid black;
+  text-align: center;
+}
+
+.elementColumn:first-child {
+  margin-left: 0;
+}
+
+.elementColumn:last-child {
+  margin-right: 0;
+}
+
+.date {
+  padding-left: 10px;
+}
+
+.elementButton {
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  height: var(--buttonSize);
+  width: var(--buttonSize);
+  top: calc(50% - var(--buttonSize) / 2);
+  padding: 0;
+  border-radius: 4px;
+}
+
+.elementButton:hover {
+  background-color: #efa501;
+}
+
+.elementButton:active {
+  background-color: #f8e6be;
+}
+
+.buttonEdit {
+  right: 7%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonStart {
+  right: calc(10% + var(--buttonSize));
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -27,11 +27,11 @@
 /* Create a custom checkbox */
 .checkmark {
   position: absolute;
-  top: 0;
-  left: 0;
   height: var(--checkbox-size);
   width: var(--checkbox-size);
+  top: calc(50% - var(--checkbox-size) / 2);
   background-color: #eee;
+  left: 0;
 }
 
 /* On mouse-over, add a grey background color */
@@ -58,8 +58,8 @@
 
 /* Style the checkmark/indicator */
 .container .checkmark:after {
-  left: calc(var(--checkbox-size) / 3);
-  top: calc(var(--checkbox-size) / 9);
+  left: calc(var(--checkbox-size) / 2.5);
+  top: calc(var(--checkbox-size) / 5);
   width: calc(var(--checkbox-size) / 4);
   height: calc(var(--checkbox-size) / 2);
   border: solid white;
@@ -68,4 +68,13 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.container .circleCheckmark {
+  border: 3px solid white;
+  border-radius: 50%;
+}
+
+.container .circleCheckmark:after {
+  border: none;
 }

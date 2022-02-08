@@ -1,30 +1,28 @@
 import Button from '@components/Button/Button';
 import Input from '@components/Input/Input';
 import SecondaryButton from '@components/SecondaryButton/SecondaryButton';
-import { getErrorMessage } from '@utils/utils';
+import { validateName, validatePassword } from '@utils/errorCodes';
 import { memo, useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [login, setLogin] = useState('');
+  const [login, setLogin] = useState(localStorage.getItem('login'));
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.user.error);
-  const errorMessage = getErrorMessage({ error, section: 'user' });
 
   const handleChangeLogin = useCallback(
-    (e) => {
-      setLogin(e.target.value);
+    ({ value }) => {
+      setLogin(value);
     },
     [setLogin]
   );
 
   const handleChangePassword = useCallback(
-    (e) => {
-      setPassword(e.target.value);
+    ({ value }) => {
+      setPassword(value);
     },
     [setPassword]
   );
@@ -32,7 +30,7 @@ const Login = () => {
   const handleSignIn = useCallback(() => {
     dispatch({
       type: 'SIGN_IN',
-      payload: { login, password, move: () => navigate('/main') },
+      payload: { login, password, move: () => navigate('/main/1') },
     });
     setPassword('');
   }, [dispatch, navigate, login, password]);
@@ -53,8 +51,7 @@ const Login = () => {
             value={login}
             onChange={handleChangeLogin}
             inputText="Логин"
-            error={error}
-            errorMessage={errorMessage}
+            validator={validateName}
           />
         </li>
         <li className={styles.input}>
@@ -66,8 +63,7 @@ const Login = () => {
             value={password}
             onChange={handleChangePassword}
             inputText="Пароль"
-            error={error}
-            errorMessage={errorMessage}
+            validator={validatePassword}
           />
         </li>
         <Button

@@ -39,7 +39,14 @@ export function* workSignIn({ payload: { login, password, move } }) {
   } catch (err) {}
 }
 
+export function* workLogout() {
+  try {
+    yield put(reducers.logout());
+  } catch (e) {}
+}
+
 export default function* rootSaga() {
   yield takeLatest('SIGN_IN', workSignIn);
   yield takeLatest('SIGN_UP', workSignUp);
+  yield takeLatest('LOGOUT', workLogout);
 }

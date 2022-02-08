@@ -2,9 +2,8 @@ import Button from '@components/Button/Button';
 import Checkbox from '@components/Checkbox/Checkbox';
 import Input from '@components/Input/Input';
 import SecondaryButton from '@components/SecondaryButton/SecondaryButton';
-import { getErrorMessage } from '@utils/utils';
 import { memo, useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styles from './Register.module.css';
 
@@ -15,26 +14,24 @@ const Register = () => {
   const [adminPassword, setAdminPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.user.error);
-  const errorMessage = getErrorMessage({ error, section: 'user' });
 
   const handleChangeLogin = useCallback(
-    (e) => {
-      setLogin(e.target.value);
+    ({ value }) => {
+      setLogin(value);
     },
     [setLogin]
   );
 
   const handleChangePassword = useCallback(
-    (e) => {
-      setPassword(e.target.value);
+    ({ value }) => {
+      setPassword(value);
     },
     [setPassword]
   );
 
   const handleChangeAdminPassword = useCallback(
-    (e) => {
-      setAdminPassword(e.target.value);
+    ({ value }) => {
+      setAdminPassword(value);
     },
     [setAdminPassword]
   );
@@ -44,7 +41,8 @@ const Register = () => {
       type: 'SIGN_UP',
       payload: { login, password, adminPassword, isAdmin },
     });
-  }, [dispatch, login, password, adminPassword, isAdmin]);
+    navigate('/login');
+  }, [dispatch, login, password, adminPassword, isAdmin, navigate]);
 
   const handleLoginClick = useCallback(() => {
     navigate('/login');
@@ -67,8 +65,6 @@ const Register = () => {
               value={login}
               onChange={handleChangeLogin}
               inputText="Логин"
-              error={error}
-              errorMessage={errorMessage}
             />
           </li>
           <li className={styles.input}>
@@ -80,8 +76,6 @@ const Register = () => {
               value={password}
               onChange={handleChangePassword}
               inputText="Пароль"
-              error={error}
-              errorMessage={errorMessage}
             />
           </li>
           {isAdmin && (
@@ -94,15 +88,14 @@ const Register = () => {
                 value={adminPassword}
                 onChange={handleChangeAdminPassword}
                 inputText="Пароль администратора"
-                error={error}
-                errorMessage={errorMessage}
               />
             </li>
           )}
           <Checkbox
             text={'Зарегистрироваться как администратор'}
-            onClick={handleChangeRegisterMode}
-            checkboxContainer={styles.checkboxContainer}
+            onChange={handleChangeRegisterMode}
+            className={{ container: styles.checkboxContainer }}
+            checked={isAdmin}
           />
           <Button
             text="Зарегистрироваться"

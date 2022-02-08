@@ -1,0 +1,24 @@
+.container {
+  --width: 300px;
+  margin-left: calc(50% - var(--width) / 2);
+  width: var(--width);
+}
+
+.question {
+  margin: 0 auto;
+  width: max-content;
+}
+
+.checkboxContainer {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #fff;
+  line-height: 32px;
+  display: flex;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.checkboxCheckmark {
+  left: 10px;
+}

@@ -1,14 +1,69 @@
 .container {
-  position: fixed;
-  border: 0px solid grey;
-  border-right-width: 1px;
-  width: min(250px, 20vw);
-  height: 100%;
+  min-width: min(300px, 25vw);
   list-style-type: none;
-  margin-top: 0;
+  margin: 0;
+  background-color: white;
+  box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .menuElement {
   margin-top: 20px;
+}
+
+.login {
+  text-align: center;
+}
+
+.isAdmin {
+  text-align: center;
+}
+
+.button {
   border: 1px solid grey;
+  background-color: #e0f0e5;
+  width: 100%;
+  line-height: 48px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #f1f3f2;
+}
+
+.button:active {
+  background-color: #d9dfdb;
+}
+
+.filter {
+  --borders: 1px;
+  --padding-left: 10px;
+  width: calc(100% - var(--borders) * 2 - var(--padding-left));
+  padding: 0 0 0 var(--padding-left);
+  height: 48px;
+  background-color: #f9f7f4;
+  border: var(--borders) solid #f4f0e9;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.filter::placeholder {
+  font-size: 14px;
+}
+
+.filter:hover {
+  background-color: #f4f0e9;
+}
+
+.filter:focus {
+  border-color: #a6a6a6;
+  cursor: text;
+}
+
+.link {
+  text-decoration: none;
+  color: #286562;
 }

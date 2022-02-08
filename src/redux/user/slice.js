@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   login: localStorage.getItem('login') ?? '',
-  isAdmin: localStorage.getItem('isAdmin') ?? false,
+  isAdmin: JSON.parse(localStorage.getItem('isAdmin')) ?? false,
   error: 0,
 };
 
@@ -26,10 +26,25 @@ export const userSlice = createSlice({
     signUpFailure: (state, { payload }) => {
       state.error = payload.error;
     },
+    logout: (state) => {
+      localStorage.setItem('login', '');
+      localStorage.setItem('isAdmin', false);
+      state.login = '';
+      state.isAdmin = false;
+    },
+    restoreError: (state) => {
+      state.error = 0;
+    },
   },
 });
 
-export const { signInSuccess, signInFailure, signUpSuccess, signUpFailure } =
-  userSlice.actions;
+export const {
+  signInSuccess,
+  signInFailure,
+  signUpSuccess,
+  signUpFailure,
+  logout,
+  restoreError,
+} = userSlice.actions;
 
 export default userSlice.reducer;

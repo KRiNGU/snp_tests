@@ -1,0 +1,109 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "login": "Alexandr",
+      "isAdmin": true,
+      "password": "admin"
+    },
+    {
+      "login": "Maxim",
+      "password": "admin",
+      "isAdmin": true,
+      "id": 2
+    },
+    {
+      "login": "Maxima",
+      "password": "asdasd",
+      "isAdmin": false,
+      "id": 3
+    }
+  ],
+  "tests": [
+    {
+      "id": 0,
+      "name": "first",
+      "description": "First test",
+      "date": "2022-01-07",
+      "grade": "S"
+    }
+  ],
+  "questions": [
+    {
+      "id": 0,
+      "name": "Сколько будет 2 + 2",
+      "rightAnswerId": 0,
+      "testId": 0
+    },
+    {
+      "id": 1,
+      "name": "Столица России",
+      "rightAnswerId": [1],
+      "testId": 0
+    },
+    {
+      "id": 2,
+      "name": "Назовите млекопитающих",
+      "rightAnswerId": [4, 7, 3],
+      "testId": 0
+    },
+    {
+      "name": "Назовите рыб",
+      "rightAnswerId": [9, 8],
+      "testId": "0",
+      "id": 3
+    }
+  ],
+  "answers": [
+    {
+      "id": 0,
+      "name": 4,
+      "questionId": 0
+    },
+    {
+      "name": "Москва",
+      "id": 1,
+      "questionId": 1
+    },
+    {
+      "id": 2,
+      "name": "Санкт-Петербург",
+      "questionId": 1
+    },
+    {
+      "id": 3,
+      "name": "Дельфин",
+      "questionId": 2
+    },
+    {
+      "id": 4,
+      "name": "Коза",
+      "questionId": 2
+    },
+    {
+      "id": 5,
+      "name": "Таракан",
+      "questionId": 2
+    },
+    {
+      "name": "Собака",
+      "questionId": 2,
+      "id": 7
+    },
+    {
+      "name": "Щука",
+      "questionId": 3,
+      "id": 8
+    },
+    {
+      "name": "Акула",
+      "questionId": 3,
+      "id": 9
+    },
+    {
+      "name": "Волк",
+      "questionId": 3,
+      "id": 10
+    }
+  ]
+}

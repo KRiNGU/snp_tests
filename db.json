@@ -7,16 +7,46 @@
       "password": "admin"
     },
     {
-      "login": "Maxim",
-      "password": "admin",
-      "isAdmin": true,
+      "login": "User",
+      "password": "user",
+      "isAdmin": false,
       "id": 2
+    }
+  ],
+  "tests": [
+    {
+      "name": "Тест 1",
+      "description": "Описание теста 1",
+      "date": "2022-2-6",
+      "id": 1
+    }
+  ],
+  "questions": [
+    {
+      "id": 1644145097146,
+      "name": "Они если честно не пара",
+      "rightAnswerId": [1644145097147],
+      "testId": "1"
+    }
+  ],
+  "answers": [
+    {
+      "id": 1644145097147,
+      "name": "Дельфин",
+      "questionId": 1644145097146,
+      "order": 1
     },
     {
-      "login": "Maxima",
-      "password": "asdasd",
-      "isAdmin": false,
-      "id": 3
+      "id": 1644145097148,
+      "name": "Русалка",
+      "questionId": 1644145097146,
+      "order": 2
+    },
+    {
+      "id": 1644145113533,
+      "name": "Краб",
+      "questionId": 1644145097146,
+      "order": 3
     }
   ]
 }

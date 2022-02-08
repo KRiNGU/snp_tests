@@ -1,14 +1,54 @@
+.container {
+  position: relative;
+}
+
+.inputText {
+  cursor: text;
+}
+
+.inputName {
+  line-height: 30px;
+  margin-right: 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid grey;
+  padding: 0;
+  padding-left: 10px;
+  width: 100%;
+}
+
 .input {
   line-height: 30px;
   border-radius: 5px;
-  outline: none;
   border: 1px solid #f4f0e9;
   background-color: #f9f7f4;
   padding-left: 10px;
+  width: 100%;
 }
 
 .errorLabel {
   font-size: 10px;
   color: red;
   padding-left: 5px;
+}
+
+.button {
+  --height: 20px;
+  height: var(--height);
+  width: var(--height);
+  position: absolute;
+  bottom: calc(17px - var(--height) / 2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  padding: 0;
+}
+
+.edit {
+  right: 30px;
+}
+
+.delete {
+  right: 0px;
 }

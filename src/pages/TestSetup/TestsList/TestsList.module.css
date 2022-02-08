@@ -1,0 +1,35 @@
+.testsContainer {
+  width: 100%;
+  max-width: 400px;
+  margin: 70px auto 0 auto;
+}
+
+.dropDownContainer {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dropDownContainer:not(:first-child) {
+  margin-top: 20px;
+}
+
+.inputLabel {
+  max-width: 75%;
+  word-break: break-all;
+}
+
+.input {
+  width: 100%;
+  margin-top: 10px;
+  padding-right: 60px;
+}
+
+.inputContainer {
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
+
+.inputContainer:not(:first-child) {
+  margin-top: 20px;
+}

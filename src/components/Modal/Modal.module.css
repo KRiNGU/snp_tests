@@ -1,0 +1,38 @@
+.container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.content {
+  position: absolute;
+  top: calc(50% - 75px);
+  left: calc(50% - 200px);
+  height: 150px;
+  width: 400px;
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.header {
+  margin-top: 40px;
+}
+
+.button {
+  position: absolute;
+  bottom: 20px;
+  padding: 0 30px;
+}
+
+.firstButton {
+  left: 50px;
+}
+
+.secondButton {
+  right: 50px;
+}

@@ -1,0 +1,89 @@
+.container {
+  background-color: white;
+  padding: 20px;
+  padding-top: 100px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid grey;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.noScrolls {
+  z-index: 0;
+  height: 100vh;
+}
+
+.backButton {
+  position: absolute;
+  right: 100px;
+  top: 20px;
+}
+
+.nameContainer {
+  max-width: 75%;
+}
+
+.name {
+  font-size: 30px;
+  line-height: 1.5em;
+}
+
+.editName {
+  font-size: 30px;
+  line-height: 1.5em;
+}
+
+.descriptionContainer {
+  margin-top: 60px;
+  max-width: 75%;
+}
+
+.addButtons {
+  display: flex;
+}
+
+.addButton {
+  margin-top: 40px;
+  padding: 5px 20px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.addButton:last-child {
+  margin-left: 20px;
+}
+
+.saveButton {
+  padding: 0 10px;
+  margin-top: 20px;
+  line-height: 50px;
+}
+
+.controlButton {
+  padding: 0 10px;
+  margin-top: 20px;
+  line-height: 50px;
+  width: max(50%, 150px);
+}
+
+.saveButton:hover {
+  background-color: #1100ad;
+}
+
+.saveButton:active {
+  background-color: #1900ff;
+}
+
+.deleteButton:hover {
+  background-color: #960000;
+}
+
+.deleteButton:active {
+  background-color: #ff0000;
+}

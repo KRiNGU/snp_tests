@@ -1,0 +1,58 @@
+.container {
+  width: 100%;
+  padding: 0 20px;
+  position: relative;
+}
+
+.id {
+  min-width: 24px;
+  width: 5%;
+}
+
+.name {
+  min-width: 72px;
+  width: 15%;
+}
+
+.description {
+  width: 65%;
+}
+
+@media screen and (max-width: 768px) {
+  .description {
+    display: none;
+  }
+  .id {
+    width: 10%;
+  }
+  .name {
+    width: 35%;
+  }
+  .date {
+    width: 35%;
+  }
+}
+
+.date {
+  min-width: 105px;
+  width: 15%;
+}
+
+.pages {
+  position: absolute;
+  bottom: 20px;
+  padding: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.page {
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
+}
+
+.page:not(:first-child) {
+  margin-left: 20px;
+}

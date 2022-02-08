@@ -1,10 +1,9 @@
-import * as codes from './errorCodes';
-
-export const getErrorMessage = ({ error, section }) => {
-  switch (section) {
-    case 'user':
-      return codes.user[error];
-    default:
-      return 'Unknown error code: ' + error;
-  }
+export const sortByParameter = (mass, parameter) => {
+  return mass.sort((a, b) => {
+    if (a[parameter] > b[parameter]) {
+      return 1;
+    } else if (a[parameter] < b[parameter]) {
+      return -1;
+    } else return 0;
+  });
 };

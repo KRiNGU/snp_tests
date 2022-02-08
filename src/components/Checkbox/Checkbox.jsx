@@ -3,17 +3,23 @@ import classnames from 'classnames';
 import { memo } from 'react';
 
 const Checkbox = ({
-  disabled = false,
-  onClick,
+  checked = false,
+  onChange,
   text,
-  checkboxContainer = '',
-  checkboxCheckmark = '',
+  className = {},
+  isCircle = false,
 }) => {
   return (
-    <label className={classnames(checkboxContainer, styles.container)}>
+    <label className={classnames(className.container, styles.container)}>
       {text}
-      <input type="checkbox" onClick={onClick} disabled={disabled} />
-      <span className={classnames(checkboxCheckmark, styles.checkmark)}></span>
+      <input type="checkbox" onChange={() => onChange()} checked={checked} />
+      <span
+        className={classnames(
+          className.checkmark,
+          styles.checkmark,
+          isCircle ? styles.circleCheckmark : ''
+        )}
+      ></span>
     </label>
   );
 };
