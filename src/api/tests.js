@@ -82,8 +82,8 @@ export const deleteQuestion = ({ id }) => mainAxios.delete(`/questions/${id}`);
 
 ////////////////////////////////////////////////////           Answers API           ////////////////////////////////////////////////////
 
-export const addAnswer = ({ id, name, questionId }) =>
-  mainAxios.post(`/answers`, { id, name, questionId });
+export const addAnswer = ({ id, name, questionId, order }) =>
+  mainAxios.post(`/answers`, { id, name, questionId, order });
 
 export const getAnswersOfOneQuestion = ({ questionId }) =>
   mainAxios.get(`/answers?questionId=${questionId}`);

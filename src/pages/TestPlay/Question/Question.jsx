@@ -1,6 +1,7 @@
 import Input from '@components/Input/Input';
 import MultipleAnswer from '@components/MultipleAnswer/MultipleAnswer';
 import SingleAnswer from '@components/SingleAnswer/SingleAnswer';
+import { sortByParameter } from '@utils/utils';
 import { memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './Question.module.css';
@@ -71,14 +72,14 @@ const Question = ({ question, onChange, visible = false, defaultValue }) => {
           />
         ) : rightAnswerId?.length === 1 ? (
           <SingleAnswer
-            answers={answers}
+            answers={sortByParameter(answers, 'order')}
             question={question?.name}
             currentAnswer={answer ?? []}
             onChange={handleSingleChange}
           />
         ) : (
           <MultipleAnswer
-            answers={answers}
+            answers={sortByParameter(answers, 'order')}
             question={question?.name}
             currentAnswer={answer ?? []}
             onChange={handleMultipleChange}

@@ -13,6 +13,7 @@ const TestsList = ({
   onEditAnswer,
   onEditQuestionName,
   onToggleRightAnswer,
+  onChangeAnswersOrder,
 }) => {
   const handleEditAnswer = useCallback(
     ({ id, value }) => {
@@ -71,6 +72,13 @@ const TestsList = ({
     [onDeleteQuestion]
   );
 
+  const handleChangeAnswersOrder = useCallback(
+    ({ aId, newOrder, qId, oldOrder }) => {
+      onChangeAnswersOrder({ aId, newOrder, qId, oldOrder });
+    },
+    [onChangeAnswersOrder]
+  );
+
   return (
     <div className={styles.testsContainer}>
       {questions.map((question) => {
@@ -112,6 +120,7 @@ const TestsList = ({
             onDeleteElement={(aId) =>
               handleDeleteAnswer({ aId, qId: question.id })
             }
+            onDragEnd={handleChangeAnswersOrder}
             onAddElement={handleAddAnswer}
             onEditName={handleEditQuestionName}
             isChangeable

@@ -74,6 +74,35 @@ const TestSetup = () => {
     setIsDeleteModalOpened(true);
   };
 
+  const handleChangeAnswersOrder = useCallback(
+    ({ aId, qId, newOrder, oldOrder }) => {
+      let newAnswers = JSON.parse(JSON.stringify(answers));
+      let changingAnswers = newAnswers.filter(
+        (answer) => answer.questionId === qId
+      );
+      if (newOrder > oldOrder) {
+        changingAnswers
+          .filter(
+            (answer) => answer.order <= newOrder && answer.order >= oldOrder
+          )
+          .forEach((answer) => {
+            answer.order -= 1;
+          });
+      } else if (newOrder < oldOrder) {
+        changingAnswers
+          .filter(
+            (answer) => answer.order >= newOrder && answer.order <= oldOrder
+          )
+          .forEach((answer) => {
+            answer.order += 1;
+          });
+      }
+      changingAnswers.find((answer) => answer.id === aId).order = newOrder;
+      setAnswers(newAnswers);
+    },
+    [answers, setAnswers]
+  );
+
   const disableScroll = useCallback(() => {
     const scrollBarWidth = window.innerWidth - html.clientWidth;
     const bodyPaddingRight =
@@ -116,7 +145,6 @@ const TestSetup = () => {
 
   const handleAddAnswer = useCallback(
     ({ qId, aId, isWithoutText = false }) => {
-      console.log(aId);
       setAnswers([
         ...answers,
         {
@@ -208,8 +236,6 @@ const TestSetup = () => {
     return <></>;
   }
 
-  console.log(typeof isAdmin);
-
   if (isAdmin === false) {
     return <AccessDenied />;
   }
@@ -266,6 +292,7 @@ const TestSetup = () => {
         onEditAnswer={handleEditAnswer}
         onEditQuestionName={handleEditQuestionName}
         onToggleRightAnswer={handleToggleRightAnswer}
+        onChangeAnswersOrder={handleChangeAnswersOrder}
       />
       <div className={styles.addButtons}>
         <Button

@@ -6,8 +6,10 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import Button from '@components/Button/Button';
 import Input from '@components/Input/Input';
+import { Draggable } from 'react-beautiful-dnd';
 
 const DropDownElement = ({
+  index,
   id,
   defaultText,
   onClick,
@@ -58,24 +60,34 @@ const DropDownElement = ({
   );
 
   return !isEditMode ? (
-    <div onClick={handleClick} className={cs(classNames.item, styles.item)}>
-      <span className={styles.text}>{text}</span>{' '}
-      {isSelected && <BsCheck className={styles.rightAnswer} />}
-      {isChangeable && (
-        <>
-          <Button
-            className={styles.editButton}
-            onClick={toggleEditMode}
-            text={<AiOutlineEdit className={styles.editIcon} />}
-          />
-          <Button
-            className={styles.deleteButton}
-            onClick={handleDelete}
-            text={<MdOutlineDeleteOutline className={styles.deleteIcon} />}
-          />
-        </>
+    <Draggable key={id} draggableId={id.toString()} index={index}>
+      {(provided) => (
+        <div
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+          onClick={handleClick}
+          className={cs(classNames.item, styles.item)}
+        >
+          <span className={styles.text}>{text}</span>{' '}
+          {isSelected && <BsCheck className={styles.rightAnswer} />}
+          {isChangeable && (
+            <>
+              <Button
+                className={styles.editButton}
+                onClick={toggleEditMode}
+                text={<AiOutlineEdit className={styles.editIcon} />}
+              />
+              <Button
+                className={styles.deleteButton}
+                onClick={handleDelete}
+                text={<MdOutlineDeleteOutline className={styles.deleteIcon} />}
+              />
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </Draggable>
   ) : (
     <div className={cs(classNames.item, styles.inputItem)}>
       <Input

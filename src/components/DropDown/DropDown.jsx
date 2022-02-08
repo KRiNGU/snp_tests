@@ -8,6 +8,8 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import Input from '@components/Input/Input';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { Droppable } from 'react-beautiful-dnd';
 
 const DropDown = ({
   className = {},
@@ -22,6 +24,7 @@ const DropDown = ({
   onAddElement = () => {},
   onDeleteElement = () => {},
   onEditName = () => {},
+  onDragEnd = () => {},
 }) => {
   const [isOpened, setIsOpened] = useState(false);
   const [headerTitle, setTitle] = useState(title);
@@ -104,6 +107,22 @@ const DropDown = ({
     [onChangeElement]
   );
 
+  const handleDragEnd = useCallback(
+    (result) => {
+      console.log(result);
+      if (!result.destination) {
+        return;
+      }
+      onDragEnd({
+        aId: parseInt(result.draggableId),
+        newOrder: result.destination.index,
+        oldOrder: result.source.index,
+        qId: dropDownId,
+      });
+    },
+    [onDragEnd, dropDownId]
+  );
+
   return (
     <div className={cs(className.container, styles.container)}>
       <div
@@ -156,21 +175,31 @@ const DropDown = ({
         )}
       </div>
       {isOpened && (
-        <div role="list" className={cs(className.list, styles.list)}>
-          {list.map((item) => (
-            <DropDownElement
-              key={item.id}
-              id={item.id}
-              defaultText={item.name}
-              onClick={selectItem}
-              classNames={className.item}
-              onChange={handleChangeElement}
-              isSelected={selected.includes(item.id)}
-              onDelete={handleDeleteElement}
-              isChangeable={isChangeable}
-            />
-          ))}
-        </div>
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <div role="list" className={cs(className.list, styles.list)}>
+            <Droppable droppableId={dropDownId.toString()} key={dropDownId}>
+              {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {list.map((item, index) => (
+                    <DropDownElement
+                      index={index}
+                      key={item.id}
+                      id={item.id}
+                      defaultText={item.name}
+                      onClick={selectItem}
+                      classNames={className.item}
+                      onChange={handleChangeElement}
+                      isSelected={selected.includes(item.id)}
+                      onDelete={handleDeleteElement}
+                      isChangeable={isChangeable}
+                    />
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div>
+        </DragDropContext>
       )}
     </div>
   );

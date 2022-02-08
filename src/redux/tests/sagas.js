@@ -157,6 +157,7 @@ export function* workSaveTestData({
         id: answer.id,
         name: answer.name,
         questionId: answer.questionId,
+        order: answer.order,
       });
       yield put(reducers.addAnswers({ answers: [answer] }));
     }
