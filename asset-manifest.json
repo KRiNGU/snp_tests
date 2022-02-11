@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/snp_test/static/css/main.1e29941a.chunk.css",
+    "main.js": "/snp_test/static/js/main.85b85f12.chunk.js",
+    "main.js.map": "/snp_test/static/js/main.85b85f12.chunk.js.map",
+    "runtime-main.js": "/snp_test/static/js/runtime-main.9d278120.js",
+    "runtime-main.js.map": "/snp_test/static/js/runtime-main.9d278120.js.map",
+    "static/js/2.56698b95.chunk.js": "/snp_test/static/js/2.56698b95.chunk.js",
+    "static/js/2.56698b95.chunk.js.map": "/snp_test/static/js/2.56698b95.chunk.js.map",
+    "static/js/3.65c663d9.chunk.js": "/snp_test/static/js/3.65c663d9.chunk.js",
+    "static/js/3.65c663d9.chunk.js.map": "/snp_test/static/js/3.65c663d9.chunk.js.map",
+    "index.html": "/snp_test/index.html",
+    "static/css/main.1e29941a.chunk.css.map": "/snp_test/static/css/main.1e29941a.chunk.css.map",
+    "static/js/2.56698b95.chunk.js.LICENSE.txt": "/snp_test/static/js/2.56698b95.chunk.js.LICENSE.txt",
+    "static/media/Authentication.module.css": "/snp_test/static/media/background.49ec1b36.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9d278120.js",
+    "static/js/2.56698b95.chunk.js",
+    "static/css/main.1e29941a.chunk.css",
+    "static/js/main.85b85f12.chunk.js"
+  ]
+}
