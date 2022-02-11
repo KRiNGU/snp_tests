@@ -4,13 +4,11 @@ import styles from './SingleAnswer.module.css';
 
 const SingleAnswer = ({
   answers = [],
-  question = '',
   currentAnswer = [],
   onChange = () => {},
 }) => {
   return (
-    <div className={styles.container}>
-      <h3 className={styles.question}>{question}</h3>
+    <>
       {answers.map((answer) => {
         return (
           <Checkbox
@@ -26,7 +24,7 @@ const SingleAnswer = ({
           />
         );
       })}
-    </div>
+    </>
   );
 };
 

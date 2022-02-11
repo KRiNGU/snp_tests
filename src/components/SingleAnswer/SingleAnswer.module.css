@@ -4,11 +4,6 @@
   width: var(--width);
 }
 
-.question {
-  margin: 0 auto;
-  width: max-content;
-}
-
 .checkboxContainer {
   margin-top: 20px;
   width: 100%;

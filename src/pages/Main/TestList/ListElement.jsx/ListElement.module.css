@@ -5,6 +5,7 @@
 .element {
   margin: 25px 0 0 0;
   display: flex;
+  align-items: center;
   list-style: none;
   padding: 0;
   border: 1px solid grey;
@@ -13,10 +14,12 @@
 }
 
 .elementColumn {
-  padding: 0 5px;
   line-height: 30px;
-  position: relative;
-  font-size: min(16px, 1.5vw);
+  height: 30px;
+  overflow: hidden;
+  padding: 0 5px;
+  font-size: min(16px, 4vw);
+  word-break: break-all;
 }
 
 .elementColumn:not(:last-child) {
@@ -33,7 +36,8 @@
 }
 
 .date {
-  padding-left: 10px;
+  padding-left: 5px;
+  position: relative;
 }
 
 .elementButton {
@@ -69,4 +73,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (max-width: 480px) {
+  .buttonStart {
+    display: none;
+  }
+  .date {
+    padding-left: 30px;
+  }
 }

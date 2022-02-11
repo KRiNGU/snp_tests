@@ -4,7 +4,7 @@
   padding-top: 100px;
   margin: 0 auto;
   width: 100%;
-  max-width: 400px;
+  max-width: 480px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,7 +34,7 @@
   line-height: 1.5em;
 }
 
-.editName {
+.inputCenteredPaperField {
   font-size: 30px;
   line-height: 1.5em;
 }
@@ -86,4 +86,23 @@
 
 .deleteButton:active {
   background-color: #ff0000;
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    margin-top: 0;
+    border-radius: 0;
+    border-width: 0;
+  }
+  .backButton {
+    top: 30px;
+    left: auto;
+    right: auto;
+  }
+  .nameContainer {
+    max-width: none;
+  }
+  .descriptionContainer {
+    max-width: none;
+  }
 }

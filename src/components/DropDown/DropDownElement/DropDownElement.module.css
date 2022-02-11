@@ -3,7 +3,6 @@
   width: 100%;
   padding: 0px 20px;
   padding-right: 90px;
-  font-size: 1.5rem;
   line-height: 40px;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -103,4 +102,27 @@
 .inputItem:last-child .input {
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+}
+
+@media screen and (max-width: 480px) {
+  .editButton {
+    display: flex;
+    background-color: transparent;
+  }
+  .editButton:hover {
+    background-color: transparent;
+  }
+  .editButton:active {
+    background-color: transparent;
+  }
+  .deleteButton {
+    display: flex;
+    background-color: transparent;
+  }
+  .deleteButton:hover {
+    background-color: transparent;
+  }
+  .deleteButton:active {
+    background-color: transparent;
+  }
 }

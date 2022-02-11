@@ -4,3 +4,75 @@
   height: 100vh;
   display: flex;
 }
+
+.mobileFilter {
+  width: calc(100% - 70px);
+  padding-left: 10px;
+  height: 40px;
+  border: none;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-bottom-right-radius: 5px;
+  display: none;
+}
+
+.mobileControlButton {
+  --size: 20px;
+  height: var(--size);
+  width: var(--size);
+  position: absolute;
+  top: calc(20px - var(--size) / 2);
+  padding: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+.mobileControlButton:hover {
+  background-color: #8d8d8d;
+}
+
+.mobileControlButton:active {
+  background-color: #bebebe;
+}
+
+.createTestButton {
+  right: 40px;
+}
+
+.logoutButton {
+  right: 5px;
+}
+
+.pages {
+  position: absolute;
+  bottom: 20px;
+  padding: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.page {
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
+}
+
+.page:not(:first-child) {
+  margin-left: 20px;
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    flex-direction: column;
+  }
+  .mobileFilter {
+    display: flex;
+  }
+  .mobileControlButton {
+    display: flex;
+  }
+}

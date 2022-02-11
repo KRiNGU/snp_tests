@@ -6,18 +6,35 @@ import { VscDebugStart } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const ListElement = ({ additionalStyles, id, name, description, date }) => {
+const ListElement = ({
+  additionalStyles,
+  id,
+  name,
+  description,
+  date,
+  onClick = () => {},
+}) => {
   const isAdmin = useSelector((state) => state.user.isAdmin);
   const navigate = useNavigate();
-  const handlePlayClick = useCallback(() => {
-    navigate(`/play/${id}`);
-  }, [navigate, id]);
-  const handleEditClick = useCallback(() => {
-    navigate(`/edit/${id}`);
-  }, [navigate, id]);
+
+  const handleClick = useCallback(
+    (e) => {
+      e.stopPropagation();
+      onClick(id);
+    },
+    [onClick, id]
+  );
+
+  const handleEditClick = useCallback(
+    (e) => {
+      e.stopPropagation();
+      navigate(`/edit/${id}`);
+    },
+    [navigate, id]
+  );
 
   return (
-    <ul className={styles.element}>
+    <ul className={styles.element} onClick={handleClick}>
       <li className={classnames(styles.elementColumn, additionalStyles.id)}>
         {id}
       </li>
@@ -50,7 +67,7 @@ const ListElement = ({ additionalStyles, id, name, description, date }) => {
         )}
         <button
           className={classnames(styles.elementButton, styles.buttonStart)}
-          onClick={handlePlayClick}
+          onClick={handleClick}
         >
           <VscDebugStart size={15} />
         </button>

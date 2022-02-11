@@ -10,6 +10,7 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Droppable } from 'react-beautiful-dnd';
+import classnames from 'classnames';
 
 const DropDown = ({
   className = {},
@@ -25,11 +26,16 @@ const DropDown = ({
   onDeleteElement = () => {},
   onEditName = () => {},
   onDragEnd = () => {},
+  isMobile = false,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
   const [headerTitle, setTitle] = useState(title);
   const [isEditMode, setIsEditMode] = useState(false);
   const [selected, setSelected] = useState(defaultSelected);
+
+  const handleBlur = useCallback(() => {
+    setIsEditMode(false);
+  }, [setIsEditMode]);
 
   const toggleOpened = useCallback(() => {
     if (isEditMode) {
@@ -60,9 +66,12 @@ const DropDown = ({
     (e) => {
       if (e.key === 'Enter') {
         setIsEditMode(false);
+        if (!e.target.value) {
+          onDelete(dropDownId);
+        }
       }
     },
-    [setIsEditMode]
+    [setIsEditMode, onDelete, dropDownId]
   );
 
   const handleChangeHeaderTitle = useCallback(
@@ -84,9 +93,9 @@ const DropDown = ({
   const toggleAddElement = useCallback(
     (e) => {
       e.stopPropagation();
-      onAddElement(dropDownId);
+      onAddElement({ qId: dropDownId, order: list.length - 1 });
     },
-    [dropDownId, onAddElement]
+    [dropDownId, onAddElement, list.length]
   );
 
   const handleDeleteDropDown = useCallback(() => {
@@ -109,7 +118,6 @@ const DropDown = ({
 
   const handleDragEnd = useCallback(
     (result) => {
-      console.log(result);
       if (!result.destination) {
         return;
       }
@@ -126,11 +134,17 @@ const DropDown = ({
   return (
     <div className={cs(className.container, styles.container)}>
       <div
-        className={cs(className.header, styles.header)}
+        className={cs(
+          className.header,
+          styles.header,
+          isEditMode && styles.headerOnEdit
+        )}
         onClick={toggleOpened}
       >
         {!isEditMode && (
-          <div className={cs(className.title, styles.title)}>{headerTitle}</div>
+          <span className={cs(className.title, styles.title)}>
+            {headerTitle}
+          </span>
         )}
         {!isEditMode &&
           (isOpened ? (
@@ -145,19 +159,25 @@ const DropDown = ({
             onChange={handleChangeHeaderTitle}
             onKeyDown={handleKeyDown}
             input={styles.headerTitleInput}
+            onBlur={isMobile ? handleBlur : () => {}}
             giveFocus
           />
         )}
         {isChangeable && (
           <>
             <Button
-              className={styles.changeNameButton}
+              className={classnames(styles.button, styles.delete)}
+              onClick={handleDeleteDropDown}
+              text={<MdOutlineDeleteOutline className={styles.deleteIcon} />}
+            />
+            <Button
+              className={classnames(styles.button, styles.changeNameButton)}
               onClick={toggleEditMode}
               text={<AiOutlineEdit className={styles.changeQuestionName} />}
             />
             {!isEditMode && (
               <Button
-                className={styles.addElement}
+                className={classnames(styles.button, styles.addElement)}
                 onClick={toggleAddElement}
                 text={
                   <IoIosAddCircleOutline className={styles.addElementIcon} />
@@ -165,13 +185,6 @@ const DropDown = ({
               />
             )}
           </>
-        )}
-        {isChangeable && (
-          <Button
-            className={styles.delete}
-            onClick={handleDeleteDropDown}
-            text={<MdOutlineDeleteOutline className={styles.deleteIcon} />}
-          />
         )}
       </div>
       {isOpened && (
@@ -192,6 +205,7 @@ const DropDown = ({
                       isSelected={selected.includes(item.id)}
                       onDelete={handleDeleteElement}
                       isChangeable={isChangeable}
+                      isMobile={isMobile}
                     />
                   ))}
                   {provided.placeholder}

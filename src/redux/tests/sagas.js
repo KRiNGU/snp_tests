@@ -204,6 +204,7 @@ export function* workLoadTestById({ payload: { id } }) {
 
     const testData = testResponse.data;
     const questions = questionResponse.data;
+    yield put(reducers.clearCurrentTestData());
     for (const elem of questions) {
       yield workLoadAnswerByQuestionId({ questionId: elem.id });
     }

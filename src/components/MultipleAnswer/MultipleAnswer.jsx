@@ -4,13 +4,11 @@ import styles from './MultipleAnswer.module.css';
 
 const MultipleAnswer = ({
   answers = [],
-  question = '',
   currentAnswer = [],
   onChange = () => {},
 }) => {
   return (
-    <div className={styles.container}>
-      <h3 className={styles.question}>{question}</h3>
+    <>
       {answers.map((answer) => {
         return (
           <Checkbox
@@ -25,7 +23,7 @@ const MultipleAnswer = ({
           />
         );
       })}
-    </div>
+    </>
   );
 };
 

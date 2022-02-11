@@ -10,10 +10,12 @@
 }
 
 .columnHeader {
-  text-align: center;
   font-size: min(16px, 1.5vw);
   padding: 0 5px;
-  line-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
 }
 
 .columnHeader:not(:last-child) {
@@ -56,4 +58,13 @@
   right: -0.7em;
   bottom: 0.1em;
   content: '\2193';
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    width: 100%;
+    margin-top: 20px;
+    border-top-width: 1px;
+    border-radius: 10px;
+  }
 }

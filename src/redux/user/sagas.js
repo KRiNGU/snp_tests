@@ -8,7 +8,7 @@ import * as reducers from './slice';
 import { adminPassword as currentAdminPassword } from '@config';
 
 export function* workSignUp({
-  payload: { login, password, isAdmin, adminPassword },
+  payload: { login, password, isAdmin, adminPassword, move },
 }) {
   try {
     if (isAdmin && adminPassword !== currentAdminPassword) {
@@ -18,8 +18,13 @@ export function* workSignUp({
     const response = yield call(getUserByLoginWithoutPassApi, { login });
     const data = response.data[0];
     if (!data) {
-      yield call(registerUserApi, { login, password, isAdmin });
+      yield call(registerUserApi, {
+        login: login.toLowerCase(),
+        password,
+        isAdmin,
+      });
       yield put(reducers.signUpSuccess());
+      move();
     } else {
       yield put(reducers.signUpFailure({ error: 400 }));
     }
@@ -28,7 +33,10 @@ export function* workSignUp({
 
 export function* workSignIn({ payload: { login, password, move } }) {
   try {
-    const response = yield call(getUserByLoginApi, { login, password });
+    const response = yield call(getUserByLoginApi, {
+      login: login.toLowerCase(),
+      password,
+    });
     const data = response?.data[0];
     if (!data) {
       yield put(reducers.signInFailure({ error: 204 }));

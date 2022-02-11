@@ -1,12 +1,7 @@
-body {
-  height: 100vh;
-}
-
 .text {
-  line-height: 50px;
+  line-height: 40px;
   width: max-content;
-  margin: 0 auto;
-  margin-top: calc(50vh - 25px);
+  margin: calc(50vh - 20px) auto;
 }
 
 @media screen and (max-width: 480px) {

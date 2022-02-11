@@ -53,3 +53,16 @@
 .checkboxContainer {
   margin-top: 20px;
 }
+
+.errorLabel {
+  font-size: 10px;
+  color: red;
+  padding-left: 5px;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 480px) {
+  .inputs {
+    left: calc(50% - 150px);
+  }
+}

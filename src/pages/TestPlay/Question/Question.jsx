@@ -60,10 +60,10 @@ const Question = ({ question, onChange, visible = false, defaultValue }) => {
   return (
     visible && (
       <div className={styles.container}>
+        <h3 className={styles.questionName}>{question.name}</h3>
         {typeof rightAnswerId === 'number' ? (
           <Input
             inputLabel={styles.numberInputLabel}
-            inputText={`${question.name}`}
             placeholder="Ответ"
             onChange={handleNumberChange}
             input={styles.numberInput}
@@ -73,14 +73,12 @@ const Question = ({ question, onChange, visible = false, defaultValue }) => {
         ) : rightAnswerId?.length === 1 ? (
           <SingleAnswer
             answers={sortByParameter(answers, 'order')}
-            question={question?.name}
             currentAnswer={answer ?? []}
             onChange={handleSingleChange}
           />
         ) : (
           <MultipleAnswer
             answers={sortByParameter(answers, 'order')}
-            question={question?.name}
             currentAnswer={answer ?? []}
             onChange={handleMultipleChange}
           />

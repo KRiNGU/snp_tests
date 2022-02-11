@@ -17,8 +17,7 @@
 .inputs {
   background-color: #fff;
   position: absolute;
-  max-width: 300px;
-  width: 100%;
+  width: 300px;
   right: 70px;
   display: flex;
   flex-direction: column;
@@ -45,11 +44,20 @@
   margin-top: 5px;
 }
 
-.errorLabel {
-  margin-top: 5px;
-}
-
 .loginButton {
   margin-top: 20px;
   padding: 0 20px;
+}
+
+.errorLabel {
+  font-size: 10px;
+  color: red;
+  padding-left: 5px;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 480px) {
+  .inputs {
+    left: calc(50% - 150px);
+  }
 }

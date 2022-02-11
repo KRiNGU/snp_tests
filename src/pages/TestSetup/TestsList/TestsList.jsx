@@ -3,6 +3,7 @@ import Input from '@components/Input/Input';
 import { memo, useCallback } from 'react';
 import styles from './TestsList.module.css';
 import { sortByParameter } from '@utils/utils';
+import { validateInputQuestion } from '@utils/errorCodes';
 
 const TestsList = ({
   answers = [],
@@ -14,17 +15,18 @@ const TestsList = ({
   onEditQuestionName,
   onToggleRightAnswer,
   onChangeAnswersOrder,
+  isMobile = false,
 }) => {
   const handleEditAnswer = useCallback(
-    ({ id, value }) => {
-      onEditAnswer({ aId: id, name: value });
+    ({ id, value, isValid = true }) => {
+      onEditAnswer({ aId: id, name: value, isValid });
     },
     [onEditAnswer]
   );
 
   const handleAddAnswer = useCallback(
-    (qId) => {
-      onAddAnswer({ qId, aId: Date.now() });
+    ({ qId, order }) => {
+      onAddAnswer({ qId, aId: Date.now(), order });
     },
     [onAddAnswer]
   );
@@ -48,7 +50,11 @@ const TestsList = ({
 
   const handleChangeDropDownElement = useCallback(
     ({ dropDownElementId, value }) => {
-      onEditAnswer({ aId: dropDownElementId, name: value });
+      onEditAnswer({
+        aId: dropDownElementId,
+        name: value,
+        isValid: true,
+      });
     },
     [onEditAnswer]
   );
@@ -90,6 +96,7 @@ const TestsList = ({
             inputLabel={styles.inputLabel}
             container={styles.inputContainer}
             placeholder="Введите ответ"
+            validator={validateInputQuestion}
             input={styles.input}
             value={
               answers.find((answer) => question.rightAnswerId === answer.id)
@@ -123,6 +130,7 @@ const TestsList = ({
             onDragEnd={handleChangeAnswersOrder}
             onAddElement={handleAddAnswer}
             onEditName={handleEditQuestionName}
+            isMobile={isMobile}
             isChangeable
           />
         );

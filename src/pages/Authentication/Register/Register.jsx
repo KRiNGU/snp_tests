@@ -2,8 +2,10 @@ import Button from '@components/Button/Button';
 import Checkbox from '@components/Checkbox/Checkbox';
 import Input from '@components/Input/Input';
 import SecondaryButton from '@components/SecondaryButton/SecondaryButton';
+import { restoreError } from '@redux/user/slice';
+import { userErrors, validateName, validatePassword } from '@utils/errorCodes';
 import { memo, useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styles from './Register.module.css';
 
@@ -12,21 +14,26 @@ const Register = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
+  const [isLoginValid, setIsLoginValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const error = useSelector((state) => state.user.error);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleChangeLogin = useCallback(
-    ({ value }) => {
+    ({ value, isValid }) => {
       setLogin(value);
+      setIsLoginValid(isValid);
     },
-    [setLogin]
+    [setLogin, setIsLoginValid]
   );
 
   const handleChangePassword = useCallback(
-    ({ value }) => {
+    ({ value, isValid }) => {
       setPassword(value);
+      setIsPasswordValid(isValid);
     },
-    [setPassword]
+    [setPassword, setIsPasswordValid]
   );
 
   const handleChangeAdminPassword = useCallback(
@@ -39,14 +46,22 @@ const Register = () => {
   const hangleRegisterUser = useCallback(() => {
     dispatch({
       type: 'SIGN_UP',
-      payload: { login, password, adminPassword, isAdmin },
+      payload: {
+        login,
+        password,
+        adminPassword,
+        isAdmin,
+        move: () => {
+          navigate(`/login`);
+        },
+      },
     });
-    navigate('/login');
   }, [dispatch, login, password, adminPassword, isAdmin, navigate]);
 
   const handleLoginClick = useCallback(() => {
+    dispatch({ type: restoreError });
     navigate('/login');
-  }, [navigate]);
+  }, [navigate, dispatch]);
 
   const handleChangeRegisterMode = useCallback(() => {
     setIsAdmin(!isAdmin);
@@ -65,6 +80,7 @@ const Register = () => {
               value={login}
               onChange={handleChangeLogin}
               inputText="Логин"
+              validator={validateName}
             />
           </li>
           <li className={styles.input}>
@@ -75,6 +91,7 @@ const Register = () => {
               placeholder="Введите пароль"
               value={password}
               onChange={handleChangePassword}
+              validator={validatePassword}
               inputText="Пароль"
             />
           </li>
@@ -101,7 +118,9 @@ const Register = () => {
             text="Зарегистрироваться"
             className={styles.loginButton}
             onClick={hangleRegisterUser}
+            disabled={!isLoginValid || !isPasswordValid}
           />
+          <label className={styles.errorLabel}>{userErrors[error]}</label>
           <SecondaryButton
             text="Войти"
             className={styles.loginButton}

@@ -8,18 +8,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './TestSetup.module.css';
 import TestsList from './TestsList/TestsList';
+import { enableScroll, disableScroll } from '@utils/utils';
+import { useCheckMobileScreen } from '@utils/hooks';
 
 const TestSetup = () => {
   let { id } = useParams();
   const dispatch = useDispatch();
   const currentTest = useSelector((state) => state.tests.currentTest);
   const isAdmin = useSelector((state) => state.user.isAdmin);
+  const isMobile = useCheckMobileScreen();
 
   useEffect(() => {
-    if (id && !currentTest.name) {
+    if (id && currentTest.id !== id) {
       dispatch({ type: 'LOAD_TEST_BY_ID', payload: { id } });
     }
-  }, [dispatch, id, currentTest.name]);
+  }, [dispatch, id, currentTest.id]);
 
   const nId = useSelector((state) => state.tests?.currentTest?.id);
   id = id ?? nId;
@@ -29,8 +32,7 @@ const TestSetup = () => {
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
-  const html = document.documentElement;
-  const { body } = document;
+  const [isSaveModalOpened, setIsSaveModalOpened] = useState(false);
 
   const navigate = useNavigate();
 
@@ -38,7 +40,11 @@ const TestSetup = () => {
     setName(currentTest.name);
     setDescription(currentTest.description);
     setQuestions(currentTest.questions);
-    setAnswers(currentTest.answers);
+    setAnswers(
+      currentTest.answers.map((answer) => {
+        return { ...answer, isValid: true };
+      })
+    );
   }, [
     currentTest.name,
     setName,
@@ -103,37 +109,16 @@ const TestSetup = () => {
     [answers, setAnswers]
   );
 
-  const disableScroll = useCallback(() => {
-    const scrollBarWidth = window.innerWidth - html.clientWidth;
-    const bodyPaddingRight =
-      parseInt(
-        window.getComputedStyle(body).getPropertyValue('padding-right')
-      ) || 0;
-    html.style.position = 'relative';
-    html.style.overflow = 'hidden';
-    body.style.position = 'relative';
-    body.style.overflow = 'hidden';
-    body.style.paddingRight = `${bodyPaddingRight + scrollBarWidth}px`;
-  }, [html, body]);
-
-  const enableScroll = useCallback(() => {
-    html.style.position = '';
-    html.style.overflow = '';
-    body.style.position = '';
-    body.style.overflow = '';
-    body.style.paddingRight = '';
-  }, [html, body]);
-
   const handleAcceptDelete = useCallback(() => {
     enableScroll();
     dispatch({ type: 'DELETE_TEST', payload: { id } });
     navigate(-1);
-  }, [enableScroll, dispatch, id, navigate]);
+  }, [dispatch, id, navigate]);
 
   const handleDeclineDelete = useCallback(() => {
     enableScroll();
     setIsDeleteModalOpened(false);
-  }, [enableScroll, setIsDeleteModalOpened]);
+  }, [setIsDeleteModalOpened]);
 
   const handleDeleteQuestion = useCallback(
     (id) => {
@@ -144,13 +129,15 @@ const TestSetup = () => {
   );
 
   const handleAddAnswer = useCallback(
-    ({ qId, aId, isWithoutText = false }) => {
+    ({ qId, aId, isWithoutText = false, order = 0 }) => {
       setAnswers([
         ...answers,
         {
           id: aId,
           name: isWithoutText ? '' : 'Введите ответ',
           questionId: qId,
+          order,
+          isValid: !isWithoutText,
         },
       ]);
     },
@@ -161,8 +148,8 @@ const TestSetup = () => {
     const qId = Date.now();
     setAnswers([
       ...answers,
-      { id: qId + 1, name: 'Введите ответ', questionId: qId },
-      { id: qId + 2, name: 'Введите ответ', questionId: qId },
+      { id: qId + 1, name: 'Введите ответ', questionId: qId, order: 0 },
+      { id: qId + 2, name: 'Введите ответ', questionId: qId, order: 1 },
     ]);
     setQuestions([
       ...questions,
@@ -198,9 +185,11 @@ const TestSetup = () => {
   );
 
   const handleEditAnswer = useCallback(
-    ({ aId, name }) => {
+    ({ aId, name, isValid }) => {
       let newAnswers = JSON.parse(JSON.stringify(answers));
-      newAnswers.find((answer) => answer.id === aId).name = name;
+      let targetAnswer = newAnswers.find((answer) => answer.id === aId);
+      targetAnswer.name = name;
+      targetAnswer.isValid = isValid;
       setAnswers(newAnswers);
     },
     [answers, setAnswers]
@@ -225,14 +214,26 @@ const TestSetup = () => {
     [questions, setQuestions]
   );
 
-  const saveChanges = useCallback(() => {
+  const handleSaveChanges = useCallback(() => {
+    disableScroll();
+    setIsSaveModalOpened(true);
+  }, [setIsSaveModalOpened]);
+
+  const handleDeclineSave = useCallback(() => {
+    enableScroll();
+    setIsSaveModalOpened(false);
+  }, [setIsSaveModalOpened]);
+
+  const handleAcceptSave = useCallback(() => {
+    enableScroll();
     dispatch({
       type: 'SAVE_TEST_DATA',
       payload: { answers, questions, testId: id, name, description },
     });
+    setIsSaveModalOpened(false);
   }, [dispatch, answers, questions, id, name, description]);
 
-  if (!currentTest.id) {
+  if (currentTest.id !== id) {
     return <></>;
   }
 
@@ -256,6 +257,15 @@ const TestSetup = () => {
           secondButtonClickAction={handleDeclineDelete}
         />
       )}
+      {isSaveModalOpened && (
+        <Modal
+          title="Сохранить?"
+          firstButtonText="Сохранить"
+          secondButtonText="Отмена"
+          firstButtonClickAction={handleAcceptSave}
+          secondButtonClickAction={handleDeclineSave}
+        />
+      )}
       <Button
         onClick={handleBack}
         text={'Вернуться'}
@@ -267,10 +277,12 @@ const TestSetup = () => {
         onChange={handleChangeTestName}
         className={{
           value: styles.name,
-          edit: styles.editName,
+          edit: styles.inputCenteredPaperField,
           container: styles.nameContainer,
+          button: styles.editButton,
         }}
         isEditable
+        isMobile={isMobile}
       />
       <CenteredPaper
         id={id}
@@ -278,10 +290,12 @@ const TestSetup = () => {
         onChange={handleChangeTestDescription}
         className={{
           value: styles.name,
-          edit: styles.editName,
+          edit: styles.inputCenteredPaperField,
           container: styles.descriptionContainer,
+          button: styles.editButton,
         }}
         isEditable
+        isMobile={isMobile}
       />
       <TestsList
         answers={answers}
@@ -293,6 +307,7 @@ const TestSetup = () => {
         onEditQuestionName={handleEditQuestionName}
         onToggleRightAnswer={handleToggleRightAnswer}
         onChangeAnswersOrder={handleChangeAnswersOrder}
+        isMobile={isMobile}
       />
       <div className={styles.addButtons}>
         <Button
@@ -307,7 +322,7 @@ const TestSetup = () => {
         />
       </div>
       <Button
-        onClick={saveChanges}
+        onClick={handleSaveChanges}
         text={
           description
             ? name
@@ -316,7 +331,11 @@ const TestSetup = () => {
             : 'Введите описание'
         }
         className={classnames(styles.controlButton, styles.saveButton)}
-        disabled={!name || !description}
+        disabled={
+          !name ||
+          !description ||
+          !answers.reduce((result, answer) => result && answer.isValid, true)
+        }
       />
       <Button
         onClick={handleDelete}

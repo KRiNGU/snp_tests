@@ -1,3 +1,9 @@
+export const userErrors = {
+  423: 'Пароль администратора не совпадает',
+  400: 'Пользователь уже существует',
+  204: 'Неправильный логин или пароль',
+};
+
 export const validateName = (text) => {
   if (!text) {
     return 'Введите имя';
@@ -17,4 +23,11 @@ export const validatePassword = (text) => {
   } else if (!/[a-zA-Z]+/.test(text) || !/[0-9]+/.test(text)) {
     return 'Пароль должен включать минимум одну букву и цифру';
   } else return 0;
+};
+
+export const validateInputQuestion = (text) => {
+  if (!text) {
+    return 'Ответ не может быть пустым';
+  }
+  return 0;
 };

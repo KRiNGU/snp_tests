@@ -11,6 +11,7 @@ const CenteredPaper = ({
   isEditable = false,
   onChange = () => {},
   payload = '',
+  isMobile = false,
 }) => {
   const [value, setValue] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
@@ -38,6 +39,10 @@ const CenteredPaper = ({
     [setIsEditMode, value]
   );
 
+  const handleBlur = useCallback(() => {
+    setIsEditMode(false);
+  }, [setIsEditMode]);
+
   const toggleEditMode = useCallback(
     (e) => {
       if (!value) {
@@ -49,6 +54,12 @@ const CenteredPaper = ({
     [setIsEditMode, isEditMode, value]
   );
 
+  const handleClick = useCallback(() => {
+    if (isMobile) {
+      toggleEditMode();
+    }
+  }, [isMobile, toggleEditMode]);
+
   return (
     <div className={classnames(className.container, styles.container)}>
       {!isEditMode ? (
@@ -57,6 +68,7 @@ const CenteredPaper = ({
             className.valueContainer,
             styles.valueContainer
           )}
+          onClick={handleClick}
         >
           <span className={classnames(className.value, styles.value)}>
             {value}
@@ -69,6 +81,7 @@ const CenteredPaper = ({
           onKeyDown={handleKeyDown}
           payload={payload}
           input={classnames(styles.edit, className.edit)}
+          onBlur={isMobile ? handleBlur : () => {}}
           giveFocus
         />
       )}

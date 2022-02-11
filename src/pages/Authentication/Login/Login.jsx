@@ -1,30 +1,36 @@
 import Button from '@components/Button/Button';
 import Input from '@components/Input/Input';
 import SecondaryButton from '@components/SecondaryButton/SecondaryButton';
-import { validateName, validatePassword } from '@utils/errorCodes';
+import { userErrors, validateName, validatePassword } from '@utils/errorCodes';
 import { memo, useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
+import { restoreError } from '@redux/user/slice';
 
 const Login = () => {
   const navigate = useNavigate();
   const [login, setLogin] = useState(localStorage.getItem('login'));
   const [password, setPassword] = useState('');
+  const [isLoginValid, setIsLoginValid] = useState(login !== '');
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const error = useSelector((state) => state.user.error);
   const dispatch = useDispatch();
 
   const handleChangeLogin = useCallback(
-    ({ value }) => {
+    ({ value, isValid }) => {
       setLogin(value);
+      setIsLoginValid(isValid);
     },
-    [setLogin]
+    [setLogin, setIsLoginValid]
   );
 
   const handleChangePassword = useCallback(
-    ({ value }) => {
+    ({ value, isValid }) => {
       setPassword(value);
+      setIsPasswordValid(isValid);
     },
-    [setPassword]
+    [setPassword, setIsPasswordValid]
   );
 
   const handleSignIn = useCallback(() => {
@@ -36,8 +42,9 @@ const Login = () => {
   }, [dispatch, navigate, login, password]);
 
   const handleRegisterClick = useCallback(() => {
+    dispatch({ type: restoreError });
     navigate('/register');
-  }, [navigate]);
+  }, [navigate, dispatch]);
 
   return (
     <div className={styles.background}>
@@ -70,7 +77,9 @@ const Login = () => {
           text="Войти"
           className={styles.loginButton}
           onClick={handleSignIn}
+          disabled={!isPasswordValid || !isLoginValid}
         />
+        <label className={styles.errorLabel}>{userErrors[error]}</label>
         <SecondaryButton
           text="Зарегистрироваться"
           className={styles.loginButton}

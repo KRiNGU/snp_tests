@@ -7,22 +7,24 @@ import Button from '@components/Button/Button';
 import { ImArrowLeft, ImArrowRight } from 'react-icons/im';
 import classnames from 'classnames';
 import Modal from '@components/Modal/Modal';
+import { disableScroll, enableScroll } from '@utils/utils';
+import { useCheckMobileScreen } from '@utils/hooks';
+import { RiStopCircleLine } from 'react-icons/ri';
 
 const TestPlay = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [isFinishModalOpened, setIsFinishModalOpened] = useState(false);
   const [isResultedModalOpened, setIsResultedModalOpened] = useState(false);
-  const html = document.documentElement;
-  const { body } = document;
   const [result, setResult] = useState(0);
   const navigate = useNavigate();
   const currentTest = useSelector((state) => state.tests.currentTest);
+  const isMobile = useCheckMobileScreen();
   useEffect(() => {
-    if (!currentTest.questions[0]) {
+    if (currentTest.id !== id) {
       dispatch({ type: 'LOAD_TEST_BY_ID', payload: { id } });
     }
-  }, [dispatch, id, currentTest.questions]);
+  }, [dispatch, id, currentTest.id]);
   const questions = useMemo(() => currentTest.questions ?? [], [currentTest]);
   const answers = useMemo(() => currentTest.answers ?? [], [currentTest]);
   let userAnswers = useRef({});
@@ -50,31 +52,10 @@ const TestPlay = () => {
     setCurrentQuestion(currentQuestion + 1);
   }, [setCurrentQuestion, currentQuestion]);
 
-  const disableScroll = useCallback(() => {
-    const scrollBarWidth = window.innerWidth - html.clientWidth;
-    const bodyPaddingRight =
-      parseInt(
-        window.getComputedStyle(body).getPropertyValue('padding-right')
-      ) || 0;
-    html.style.position = 'relative';
-    html.style.overflow = 'hidden';
-    body.style.position = 'relative';
-    body.style.overflow = 'hidden';
-    body.style.paddingRight = `${bodyPaddingRight + scrollBarWidth}px`;
-  }, [html, body]);
-
-  const enableScroll = useCallback(() => {
-    html.style.position = '';
-    html.style.overflow = '';
-    body.style.position = '';
-    body.style.overflow = '';
-    body.style.paddingRight = '';
-  }, [html, body]);
-
   const handleFinishTest = useCallback(() => {
     disableScroll();
     setIsFinishModalOpened(true);
-  }, [setIsFinishModalOpened, disableScroll]);
+  }, [setIsFinishModalOpened]);
 
   const handleAcceptFinish = useCallback(() => {
     let result = 0;
@@ -115,18 +96,18 @@ const TestPlay = () => {
   const handleDeclineFinish = useCallback(() => {
     enableScroll();
     setIsFinishModalOpened(false);
-  }, [setIsFinishModalOpened, enableScroll]);
+  }, [setIsFinishModalOpened]);
 
   const handleRestart = useCallback(() => {
     setCurrentQuestion(0);
     enableScroll();
     setIsResultedModalOpened(false);
-  }, [setCurrentQuestion, enableScroll, setIsResultedModalOpened]);
+  }, [setCurrentQuestion, setIsResultedModalOpened]);
 
   const handleExit = useCallback(() => {
     enableScroll();
     navigate(-1);
-  }, [navigate, enableScroll]);
+  }, [navigate]);
 
   if (!questions[0]) {
     return <div></div>;
@@ -162,11 +143,6 @@ const TestPlay = () => {
           defaultValue={userAnswers.current[question?.id]}
         />
       ))}
-      <Button
-        text="Завершить прохождение теста"
-        className={styles.endButton}
-        onClick={handleFinishTest}
-      />
       {currentQuestion !== 0 && (
         <Button
           text={<ImArrowLeft />}
@@ -174,6 +150,17 @@ const TestPlay = () => {
           className={classnames(styles.leftButton, styles.arrowButton)}
         />
       )}
+      <Button
+        text={
+          isMobile ? (
+            <RiStopCircleLine size="20" />
+          ) : (
+            'Завершить прохождение теста'
+          )
+        }
+        className={styles.endButton}
+        onClick={handleFinishTest}
+      />
       {currentQuestion !== questions.length - 1 && (
         <Button
           text={<ImArrowRight />}

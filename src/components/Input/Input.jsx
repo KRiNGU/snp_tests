@@ -22,6 +22,7 @@ const Input = ({
   container,
   onDelete,
   onEditInputName,
+  onBlur = () => {},
 }) => {
   const [error, setError] = useState(0);
   const [name, setName] = useState(inputText);
@@ -30,8 +31,9 @@ const Input = ({
 
   const handleChange = useCallback(
     (e) => {
-      setError(validator(e.target.value));
-      onChange({ id, value: e.target.value });
+      const error = validator(e.target.value);
+      setError(error);
+      onChange({ id, value: e.target.value, isValid: error === 0 });
     },
     [setError, validator, onChange, id]
   );
@@ -56,9 +58,12 @@ const Input = ({
     (e) => {
       if (e.key === 'Enter') {
         setIsEditMode(false);
+        if (!e.target.value) {
+          onDelete(id);
+        }
       }
     },
-    [setIsEditMode]
+    [setIsEditMode, onDelete, id]
   );
 
   const handleDelete = useCallback(() => {
@@ -70,6 +75,10 @@ const Input = ({
       ref.current.focus();
     }
   }, [giveFocus]);
+
+  const handleBlurName = useCallback(() => {
+    setIsEditMode(false);
+  }, [setIsEditMode]);
 
   return (
     <div className={classnames(styles.container, container)}>
@@ -84,6 +93,7 @@ const Input = ({
           placeholder="Введите в поле"
           onChange={handleChangeName}
           onKeyDown={onNameKeyDown}
+          onBlur={handleBlurName}
         />
       )}
       <input
@@ -94,6 +104,7 @@ const Input = ({
         placeholder={placeholder}
         onChange={handleChange}
         onKeyDown={onKeyDown}
+        onBlur={onBlur}
         ref={ref}
       />
 

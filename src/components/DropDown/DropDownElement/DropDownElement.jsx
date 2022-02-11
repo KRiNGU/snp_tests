@@ -18,9 +18,11 @@ const DropDownElement = ({
   onChange,
   onDelete,
   isChangeable = false,
+  isMobile = false,
 }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [text, setText] = useState(defaultText);
+  console.log(isMobile);
 
   const handleClick = useCallback(() => {
     onClick(id);
@@ -34,13 +36,24 @@ const DropDownElement = ({
     [setIsEditMode]
   );
 
+  const handleDelete = useCallback(
+    (e) => {
+      e.stopPropagation();
+      onDelete(id);
+    },
+    [onDelete, id]
+  );
+
   const handleKeyDown = useCallback(
     (e) => {
       if (e.key === 'Enter') {
         setIsEditMode(false);
+        if (!e.target.value) {
+          handleDelete(e);
+        }
       }
     },
-    [setIsEditMode]
+    [setIsEditMode, handleDelete]
   );
 
   const handleChangeElement = useCallback(
@@ -51,13 +64,9 @@ const DropDownElement = ({
     [onChange, id, setText]
   );
 
-  const handleDelete = useCallback(
-    (e) => {
-      e.stopPropagation();
-      onDelete(id);
-    },
-    [onDelete, id]
-  );
+  const handleBlur = useCallback(() => {
+    setIsEditMode(false);
+  }, [setIsEditMode]);
 
   return !isEditMode ? (
     <Draggable key={id} draggableId={id.toString()} index={index}>
@@ -95,6 +104,7 @@ const DropDownElement = ({
         onChange={handleChangeElement}
         onKeyDown={handleKeyDown}
         input={styles.input}
+        onBlur={isMobile ? handleBlur : () => {}}
         giveFocus
       />
     </div>

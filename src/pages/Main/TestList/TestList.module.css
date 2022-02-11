@@ -5,7 +5,7 @@
 }
 
 .id {
-  min-width: 24px;
+  min-width: 40px;
   width: 5%;
 }
 
@@ -18,6 +18,11 @@
   width: 65%;
 }
 
+.date {
+  min-width: 120px;
+  width: 15%;
+}
+
 @media screen and (max-width: 768px) {
   .description {
     display: none;
@@ -26,33 +31,9 @@
     width: 10%;
   }
   .name {
-    width: 35%;
+    width: 55%;
   }
   .date {
     width: 35%;
   }
-}
-
-.date {
-  min-width: 105px;
-  width: 15%;
-}
-
-.pages {
-  position: absolute;
-  bottom: 20px;
-  padding: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-}
-
-.page {
-  height: 40px;
-  width: 40px;
-  font-size: 20px;
-}
-
-.page:not(:first-child) {
-  margin-left: 20px;
 }

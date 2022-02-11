@@ -1,27 +1,20 @@
 import styles from './Dashboard.module.css';
 import { memo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
-const Dashboard = ({ login, isAdmin, filter, setFilter }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+const Dashboard = ({
+  login,
+  isAdmin,
+  filter,
+  setFilter,
+  onLogout,
+  onCreateTest,
+}) => {
   const handleChangeFilter = useCallback(
     (e) => {
       setFilter(e.target.value);
     },
     [setFilter]
   );
-
-  const handleLogout = useCallback(() => {
-    dispatch({ type: 'LOGOUT' });
-    navigate('/login');
-  }, [navigate, dispatch]);
-
-  const handleCreateTest = useCallback(() => {
-    dispatch({ type: 'ADD_TEST' });
-    navigate('/create');
-  }, [dispatch, navigate]);
 
   return (
     <ul className={styles.container}>
@@ -41,13 +34,13 @@ const Dashboard = ({ login, isAdmin, filter, setFilter }) => {
         />
       </li>
       <li className={styles.menuElement}>
-        <button className={styles.button} onClick={handleLogout}>
+        <button className={styles.button} onClick={onLogout}>
           Выйти
         </button>
       </li>
       {isAdmin && (
         <li className={styles.menuElement}>
-          <button className={styles.button} onClick={handleCreateTest}>
+          <button className={styles.button} onClick={onCreateTest}>
             Создать тест
           </button>
         </li>
