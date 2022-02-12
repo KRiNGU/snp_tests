@@ -7,24 +7,23 @@ import Authentication from './pages/Authentication/Authentication';
 import TestSetup from '@pages/TestSetup/TestSetup';
 import TestPlay from '@pages/TestPlay/TestPlay';
 import NotFound from '@components/NotFound/NotFound';
+import { memo } from 'react';
 
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/main/1" replace={true} />} />
-      <Route path="/main" element={<Navigate to="/main/1" replace={true} />} />
-      <Route path="/login" element={<Authentication Children={<Login />} />} />
-      <Route
-        path="/register"
-        element={<Authentication Children={<Register />} />}
-      />
-      <Route path="/main/:page" element={<Main />} />
-      <Route path="/create" element={<TestSetup />} />
-      <Route path="/edit/:id" element={<TestSetup />} />
-      <Route path="/play/:id" element={<TestPlay />} />
-      <Route path="/*" element={<NotFound />} />
-    </Routes>
-  );
-}
+const App = () => (
+  <Routes>
+    <Route path="/" element={<Navigate to="/main/1" replace={true} />} />
+    <Route path="/main" element={<Navigate to="/main/1" replace={true} />} />
+    <Route path="/login" element={<Authentication Children={<Login />} />} />
+    <Route
+      path="/register"
+      element={<Authentication Children={<Register />} />}
+    />
+    <Route path="/main/:page" element={<Main />} />
+    <Route path="/create" element={<TestSetup />} />
+    <Route path="/edit/:id" element={<TestSetup />} />
+    <Route path="/play/:id" element={<TestPlay />} />
+    <Route path="/*" element={<NotFound />} />
+  </Routes>
+);
 
-export default App;
+export default memo(App);
