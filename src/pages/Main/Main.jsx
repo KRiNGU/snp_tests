@@ -1,6 +1,5 @@
 import Button from '@components/Button/Button';
 import Modal from '@components/Modal/Modal';
-import { useGetHeight } from '@utils/hooks';
 import { disableScroll, enableScroll } from '@utils/utils';
 import { useCallback } from 'react';
 import { memo, useEffect, useState } from 'react';
@@ -17,25 +16,22 @@ const Main = () => {
   const login = useSelector((state) => state.user.login);
   const isAdmin = useSelector((state) => state.user.isAdmin);
   const dispatch = useDispatch();
+  let { page } = useParams();
+  page = parseInt(page);
+  const [filter, setFilter] = useState('');
+  const [sort, setSort] = useState('date');
+  const lastPage = useSelector((state) => state.tests.lastPage);
   useEffect(() => {
     dispatch({
-      type: 'LOAD_TESTS',
+      type: 'LOAD_TESTS_BY_PAGE',
+      payload: { page, limit: 10, filter, sort },
     });
-  }, [dispatch]);
+  }, [dispatch, page, filter, sort]);
 
   const [isPlayModalOpened, setIsPlayModalOpened] = useState(false);
   const [potentialPlayId, setPotentialPlayId] = useState();
-  let { page } = useParams();
-  page = parseInt(page);
-  const height = useGetHeight();
-  const pages = ~~((height - 168) / 57);
-  const [filter, setFilter] = useState('');
   const tests = useSelector((state) =>
     state.tests.items.filter((test) => test.name.includes(filter))
-  );
-  const lastPage = ~~(
-    tests.length / pages +
-    (~~(tests.length % pages) === 0 ? 0 : 1)
   );
   const navigate = useNavigate();
   useEffect(() => {
@@ -88,7 +84,18 @@ const Main = () => {
     setIsPlayModalOpened(false);
   }, [setIsPlayModalOpened]);
 
-  if (lastPage < page && lastPage !== 0) {
+  const handleSetColumnFilter = useCallback(
+    (sort) => {
+      setSort(sort);
+    },
+    [setSort]
+  );
+
+  if (tests.length === 0 && !filter) {
+    return <></>;
+  }
+
+  if (page > lastPage && !filter) {
     return <NotFound />;
   }
 
@@ -134,8 +141,9 @@ const Main = () => {
         onCreateTest={handleCreateTest}
       />
       <TestList
-        tests={tests.slice((page - 1) * pages, page * pages)}
+        tests={tests}
         onElementClick={handleElementClick}
+        onSetColumnFilter={handleSetColumnFilter}
       />
       <ul className={styles.pages}>
         {page !== 1 && (
@@ -146,7 +154,7 @@ const Main = () => {
           />
         )}
         <Button text={page} className={styles.page} disabled />
-        {page !== lastPage && (
+        {page < lastPage && (
           <Button
             text={page + 1}
             className={styles.page}

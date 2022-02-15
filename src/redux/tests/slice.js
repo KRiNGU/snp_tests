@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   items: [],
+  lastPage: 0,
   currentTest: {
     id: null,
     name: '',
@@ -18,6 +19,7 @@ export const testsSlice = createSlice({
   reducers: {
     getTests: (state, { payload }) => {
       state.items = payload.tests;
+      state.lastPage = payload.lastPage;
     },
     getQuestions: (state, { payload }) => {
       state.currentTest.questions = payload.questions;
@@ -33,36 +35,8 @@ export const testsSlice = createSlice({
         payload.answers
       );
     },
-    changeAnswer: (state, { payload }) => {
-      state.currentTest.answers.find(
-        (answer) => answer.id === payload.id
-      ).name = payload.name;
-    },
     addQuestion: (state, { payload }) => {
       state.currentTest.questions.push(payload.newQuestion);
-    },
-    changeQuestionName: (state, { payload }) => {
-      state.currentTest.questions.find(
-        (question) => question.id === payload.id
-      ).name = payload.name;
-    },
-    changeQuestionRightAnswer: (state, { payload }) => {
-      state.currentTest.questions.find(
-        (question) => question.id === payload.id
-      ).rightAnswerId = payload.rightAnswerId;
-    },
-    deleteAnswer: (state, { payload }) => {
-      state.currentTest.answers = state.currentTest.answers.filter(
-        (answer) => answer.id !== payload.id
-      );
-    },
-    deleteQuestion: (state, { payload }) => {
-      state.currentTest.questions = state.currentTest.questions.filter(
-        (question) => question.id !== payload.id
-      );
-      state.currentTest.answers = state.currentTest.answers.filter(
-        (answer) => answer.questionId !== payload.id
-      );
     },
     changeTestName: (state, { payload }) => {
       state.currentTest.name = payload.name;
@@ -105,12 +79,7 @@ export const {
   getQuestions,
   getCurrentTest,
   addAnswers,
-  changeAnswer,
-  changeQuestionName,
-  changeQuestionRightAnswer,
-  deleteAnswer,
   addQuestion,
-  deleteQuestion,
   changeTestName,
   changeTestDescription,
   deleteTest,

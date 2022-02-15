@@ -4,7 +4,11 @@ import ListElement from './ListElement.jsx/ListElement';
 import ListHeader from './ListHeader/ListHeader';
 import styles from './TestList.module.css';
 
-const TestList = ({ tests, onElementClick = () => {} }) => {
+const TestList = ({
+  tests,
+  onElementClick = () => {},
+  onSetColumnFilter = () => {},
+}) => {
   const additionalStyles = {
     id: styles.id,
     name: styles.name,
@@ -15,7 +19,9 @@ const TestList = ({ tests, onElementClick = () => {} }) => {
 
   const handleSetColumnFilter = (e) => {
     setColumnFilter(e.target.value);
+    onSetColumnFilter(e.target.value);
   };
+
   const handleElementClick = useCallback(
     (id) => {
       onElementClick(id);

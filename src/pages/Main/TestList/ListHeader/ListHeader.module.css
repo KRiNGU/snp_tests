@@ -28,6 +28,7 @@
 
 .columnHeader:last-child {
   margin-right: 0;
+  padding: 0;
 }
 
 .buttonColumnFilter {

@@ -15,7 +15,7 @@
 
 .inputLabel {
   max-width: 75%;
-  word-break: break-all;
+  word-break: break-word;
   line-height: 32px;
 }
 

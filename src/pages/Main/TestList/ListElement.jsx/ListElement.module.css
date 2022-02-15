@@ -5,8 +5,6 @@
 .element {
   margin: 25px 0 0 0;
   display: flex;
-  align-items: center;
-  list-style: none;
   padding: 0;
   border: 1px solid grey;
   border-radius: 10px;
@@ -15,16 +13,16 @@
 
 .elementColumn {
   line-height: 30px;
-  height: 30px;
-  overflow: hidden;
   padding: 0 5px;
   font-size: min(16px, 4vw);
-  word-break: break-all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-break: break-word;
 }
 
 .elementColumn:not(:last-child) {
   border-right: 1px solid black;
-  text-align: center;
 }
 
 .elementColumn:first-child {
@@ -33,6 +31,7 @@
 
 .elementColumn:last-child {
   margin-right: 0;
+  justify-content: start;
 }
 
 .date {
@@ -80,6 +79,6 @@
     display: none;
   }
   .date {
-    padding-left: 30px;
+    padding-left: 10px;
   }
 }

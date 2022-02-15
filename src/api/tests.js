@@ -32,8 +32,10 @@ export const getTestsByNameAndPage = ({ name, page }) =>
 
 export const getTests = () => mainAxios.get(`/tests`);
 
-export const getTestsByPage = ({ page }) =>
-  mainAxios.get(`/tests?_page=${page}`);
+export const getTestsByPage = ({ page, sort, filter, limit }) =>
+  mainAxios.get(
+    `/tests?_page=${page}&_limit=${limit}&name_like=${filter}&_sort=${sort}&_order=asc`
+  );
 
 export const changeTestName = ({ id, name }) =>
   mainAxios.patch(`/tests/${id}`, { name });
@@ -49,28 +51,6 @@ export const getQuestionsOfOneTest = ({ testId }) =>
   mainAxios.get(`/questions?testId=${testId}`);
 
 export const getQuetionById = ({ id }) => mainAxios.get(`/questions/${id}`);
-
-export const changeQuestionName = ({ id, name }) =>
-  mainAxios.patch(`/questions/${id}`, { name });
-
-export const changeQuestionRightAnswer = ({ id, rightAnswerId }) =>
-  mainAxios.patch(`/questions/${id}`, { rightAnswerId });
-
-export const addNumericQuestion = ({ testId }) =>
-  mainAxios.post(`/questions/`, {
-    name: 'Введите вопрос',
-    rightAnswerId: null,
-    type: 0,
-    testId,
-  });
-
-export const addTextQuestion = ({ testId, type }) =>
-  mainAxios.post(`/questions/`, {
-    name: 'Введите вопрос',
-    rightAnswerId: [],
-    type,
-    testId,
-  });
 
 export const addQuestion = ({ id, name, rightAnswerId, testId, type }) =>
   mainAxios.post(`/questions`, {
@@ -92,11 +72,6 @@ export const getAnswersOfOneQuestion = ({ questionId }) =>
   mainAxios.get(`/answers?questionId=${questionId}`);
 
 export const getAnswersById = ({ id }) => mainAxios.get(`/answers/${id}`);
-
-export const changeAsnwer = ({ id, name }) =>
-  mainAxios.patch(`/answers/${id}`, { name });
-
-export const deleteAnswerById = ({ id }) => mainAxios.delete(`/answers/${id}`);
 
 export const deleteAnswerQuestions = ({ questionId }) =>
   mainAxios.delete(`/answers?questionId=${questionId}`);
