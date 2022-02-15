@@ -37,9 +37,22 @@ export function* workChangeRightAnswer({ payload: { id, rightAnswerId } }) {
   } catch (e) {}
 }
 
-export function* workAddTextQuestion({ payload: { testId } }) {
+export function* workAddSingleAnswerQuestion({ payload: { testId } }) {
   try {
-    const response = yield call(addTextQuestionApi, { testId });
+    const response = yield call(addTextQuestionApi, {
+      testId,
+      type: 1,
+    });
+    yield put(reducers.addQuestion({ newQuestion: response.data }));
+  } catch (e) {}
+}
+
+export function* workAddMultipleAnswerQuestion({ payload: { testId } }) {
+  try {
+    const response = yield call(addTextQuestionApi, {
+      testId,
+      type: 2,
+    });
     yield put(reducers.addQuestion({ newQuestion: response.data }));
   } catch (e) {}
 }
@@ -147,6 +160,7 @@ export function* workSaveTestData({
         name: question.name,
         testId: question.testId,
         rightAnswerId: question.rightAnswerId,
+        type: question.type,
       });
       yield put(reducers.addQuestion({ newQuestion: question }));
     }
@@ -226,7 +240,8 @@ export default function* rootSaga() {
   yield takeLatest('CHANGE_QUESTION_NAME', workChangeQuestionName);
   yield takeLatest('ADD_ANSWER', workAddAnswer);
   yield takeLatest('DELETE_ANSWER', workDeleteAnswer);
-  yield takeLatest('ADD_TEXT_QUESTION', workAddTextQuestion);
+  yield takeLatest('ADD_SINGLE_QUESTION', workAddSingleAnswerQuestion);
+  yield takeLatest('ADD_MULTIPLE_QUESTION', workAddMultipleAnswerQuestion);
   yield takeLatest('ADD_NUMERIC_QUESTION', workAddNumericQuestion);
   yield takeLatest('DELETE_QUESTION', workDeleteQuestion);
   yield takeLatest('DELETE_TEST', workDeleteTest);

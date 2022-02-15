@@ -9,7 +9,6 @@
 
 .header {
   width: 100%;
-  height: 70px;
   border: none;
   padding: 20px;
   position: relative;
@@ -27,9 +26,8 @@
   font-size: 20px;
   width: 100%;
   color: #a6a6a6;
-  overflow: hidden;
-  white-space: nowrap;
   vertical-align: -webkit-baseline-middle;
+  word-break: break-all;
   display: inline-block;
 }
 

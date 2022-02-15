@@ -22,7 +22,6 @@ const DropDownElement = ({
 }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [text, setText] = useState(defaultText);
-  console.log(isMobile);
 
   const handleClick = useCallback(() => {
     onClick(id);

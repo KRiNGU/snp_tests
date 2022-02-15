@@ -59,27 +59,24 @@ const TestPlay = () => {
 
   const handleAcceptFinish = useCallback(() => {
     let result = 0;
-    let max = 0;
-    for (let i = 0; i < questions.length; i++) {
-      const question = questions[i];
-      const qId = question.id;
-      const rightAnswerId = question.rightAnswerId;
-      if (typeof rightAnswerId === 'number') {
-        max++;
-        if (
-          userAnswers.current?.[qId] ===
-          answers.find((answer) => answer.id === rightAnswerId)?.name
-        ) {
+    let max = questions.length;
+    const userAnswersState = userAnswers.current;
+    for (const questionId in userAnswersState) {
+      const currentAnswer = userAnswersState[questionId];
+      if (typeof currentAnswer === 'string') {
+        const rightAnswer = answers.find(
+          (answer) => answer.questionId === parseInt(questionId)
+        ).name;
+        if (rightAnswer === currentAnswer) {
           result++;
         }
-      } else {
-        for (let j = 0; j < question.rightAnswerId.length; j++) {
-          const answer = question.rightAnswerId[j];
-          if (userAnswers.current?.[qId]?.includes(answer)) {
-            result++;
-          }
+      } else if (currentAnswer) {
+        const rightAnswer = questions.find(
+          (question) => question.id === parseInt(questionId)
+        ).rightAnswerId;
+        if (JSON.stringify(rightAnswer) === JSON.stringify(currentAnswer)) {
+          result++;
         }
-        max += question.rightAnswerId.length;
       }
     }
     setResult(`${result}/${max}`);

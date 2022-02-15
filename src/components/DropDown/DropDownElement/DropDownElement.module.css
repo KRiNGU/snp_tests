@@ -4,8 +4,6 @@
   padding: 0px 20px;
   padding-right: 90px;
   line-height: 40px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   cursor: pointer;
   border: none;
   display: flex;
@@ -34,6 +32,7 @@
 .text {
   width: 100%;
   overflow: hidden;
+  word-break: break-all;
 }
 
 .editButton {

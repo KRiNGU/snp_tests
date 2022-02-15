@@ -144,7 +144,7 @@ const TestSetup = () => {
     [setAnswers, answers]
   );
 
-  const handleAddTextQuestion = useCallback(() => {
+  const handleAddSingleAnswerQuestion = useCallback(() => {
     const qId = Date.now();
     setAnswers([
       ...answers,
@@ -157,6 +157,26 @@ const TestSetup = () => {
         id: qId,
         name: 'Введите вопрос',
         rightAnswerId: [],
+        type: 1,
+        testId: id,
+      },
+    ]);
+  }, [setQuestions, questions, id, setAnswers, answers]);
+
+  const handleAddMultipleAnswerQuestion = useCallback(() => {
+    const qId = Date.now();
+    setAnswers([
+      ...answers,
+      { id: qId + 1, name: 'Введите ответ', questionId: qId, order: 0 },
+      { id: qId + 2, name: 'Введите ответ', questionId: qId, order: 1 },
+    ]);
+    setQuestions([
+      ...questions,
+      {
+        id: qId,
+        name: 'Введите вопрос',
+        rightAnswerId: [],
+        type: 2,
         testId: id,
       },
     ]);
@@ -172,6 +192,7 @@ const TestSetup = () => {
         id: qId,
         name: 'Введите вопрос',
         rightAnswerId: aId,
+        type: 0,
         testId: id,
       },
     ]);
@@ -309,18 +330,21 @@ const TestSetup = () => {
         onChangeAnswersOrder={handleChangeAnswersOrder}
         isMobile={isMobile}
       />
-      <div className={styles.addButtons}>
-        <Button
-          text="Добавить числовой вопрос"
-          className={styles.addButton}
-          onClick={handleAddNumericQuestion}
-        />
-        <Button
-          text="Добавить текстовый вопрос"
-          className={styles.addButton}
-          onClick={handleAddTextQuestion}
-        />
-      </div>
+      <Button
+        text="Добавить числовой вопрос"
+        className={styles.addButton}
+        onClick={handleAddNumericQuestion}
+      />
+      <Button
+        text="Добавить вариативный вопрос с одним ответом"
+        className={styles.addButton}
+        onClick={handleAddSingleAnswerQuestion}
+      />
+      <Button
+        text="Добавить вариативный вопрос с несколькими ответами"
+        className={styles.addButton}
+        onClick={handleAddMultipleAnswerQuestion}
+      />
       <Button
         onClick={handleSaveChanges}
         text={

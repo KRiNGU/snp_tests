@@ -27,6 +27,7 @@ const DropDown = ({
   onEditName = () => {},
   onDragEnd = () => {},
   isMobile = false,
+  isSingleSelect = false,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
   const [headerTitle, setTitle] = useState(title);
@@ -55,11 +56,15 @@ const DropDown = ({
           return;
         }
       }
-      newSelected = [...newSelected, id];
+      if (!isSingleSelect) {
+        newSelected = [...newSelected, id];
+      } else {
+        newSelected = [id];
+      }
       setSelected(newSelected);
       onSelect({ newSelected, dropDownId });
     },
-    [onSelect, dropDownId, selected, setSelected]
+    [onSelect, dropDownId, selected, setSelected, isSingleSelect]
   );
 
   const handleKeyDown = useCallback(

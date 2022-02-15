@@ -60,22 +60,25 @@ export const addNumericQuestion = ({ testId }) =>
   mainAxios.post(`/questions/`, {
     name: 'Введите вопрос',
     rightAnswerId: null,
+    type: 0,
     testId,
   });
 
-export const addTextQuestion = ({ testId }) =>
+export const addTextQuestion = ({ testId, type }) =>
   mainAxios.post(`/questions/`, {
     name: 'Введите вопрос',
     rightAnswerId: [],
+    type,
     testId,
   });
 
-export const addQuestion = ({ id, name, rightAnswerId, testId }) =>
+export const addQuestion = ({ id, name, rightAnswerId, testId, type }) =>
   mainAxios.post(`/questions`, {
-    id: id,
-    name: name,
-    rightAnswerId: rightAnswerId,
-    testId: testId,
+    id,
+    name,
+    rightAnswerId,
+    testId,
+    type,
   });
 
 export const deleteQuestion = ({ id }) => mainAxios.delete(`/questions/${id}`);

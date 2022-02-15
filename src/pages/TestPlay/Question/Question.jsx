@@ -6,14 +6,14 @@ import { memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './Question.module.css';
 
-const Question = ({ question, onChange, visible = false, defaultValue }) => {
+const Question = ({ question, onChange, visible = false }) => {
   const [answer, setAnswer] = useState(null);
   const answers = useSelector((state) =>
     state.tests.currentTest.answers.filter(
       (answer) => answer.questionId === question?.id
     )
   );
-  const rightAnswerId = question?.rightAnswerId;
+  const questionType = question?.type;
 
   const handleNumberChange = useCallback(
     ({ value }) => {
@@ -61,7 +61,7 @@ const Question = ({ question, onChange, visible = false, defaultValue }) => {
     visible && (
       <div className={styles.container}>
         <h3 className={styles.questionName}>{question.name}</h3>
-        {typeof rightAnswerId === 'number' ? (
+        {questionType === 0 ? (
           <Input
             inputLabel={styles.numberInputLabel}
             placeholder="Ответ"
@@ -70,7 +70,7 @@ const Question = ({ question, onChange, visible = false, defaultValue }) => {
             value={answer ?? ''}
             container={styles.numberContainer}
           />
-        ) : rightAnswerId?.length === 1 ? (
+        ) : questionType === 1 ? (
           <SingleAnswer
             answers={sortByParameter(answers, 'order')}
             currentAnswer={answer ?? []}

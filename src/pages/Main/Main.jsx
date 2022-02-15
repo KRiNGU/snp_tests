@@ -88,7 +88,7 @@ const Main = () => {
     setIsPlayModalOpened(false);
   }, [setIsPlayModalOpened]);
 
-  if (lastPage < page) {
+  if (lastPage < page && lastPage !== 0) {
     return <NotFound />;
   }
 

@@ -132,6 +132,7 @@ const TestsList = ({
             onEditName={handleEditQuestionName}
             isMobile={isMobile}
             isChangeable
+            isSingleSelect={question.type === 1}
           />
         );
       })}
