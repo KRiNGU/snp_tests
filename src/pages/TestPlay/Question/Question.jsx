@@ -5,20 +5,20 @@ import { sortByParameter } from '@utils/utils';
 import { memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './Question.module.css';
+import PropTypes from 'prop-types';
 
-const Question = ({ question, onChange, visible = false }) => {
-  const [answer, setAnswer] = useState(null);
+const Question = ({ question, onChange, visible = false, type }) => {
+  const [answer, setAnswer] = useState(type === 0 ? 0 : null);
   const answers = useSelector((state) =>
     state.tests.currentTest.answers.filter(
       (answer) => answer.questionId === question?.id
     )
   );
-  const questionType = question?.type;
 
   const handleNumberChange = useCallback(
     ({ value }) => {
-      setAnswer(value);
-      onChange(value);
+      setAnswer(value ? parseInt(value) : 0);
+      onChange(value ? parseInt(value) : 0);
     },
     [setAnswer, onChange]
   );
@@ -61,7 +61,7 @@ const Question = ({ question, onChange, visible = false }) => {
     visible && (
       <div className={styles.container}>
         <h3 className={styles.questionName}>{question.name}</h3>
-        {questionType === 0 ? (
+        {type === 0 ? (
           <Input
             inputLabel={styles.numberInputLabel}
             placeholder="Ответ"
@@ -70,7 +70,7 @@ const Question = ({ question, onChange, visible = false }) => {
             value={answer ?? ''}
             container={styles.numberContainer}
           />
-        ) : questionType === 1 ? (
+        ) : type === 1 ? (
           <SingleAnswer
             answers={sortByParameter(answers, 'order')}
             currentAnswer={answer ?? []}
@@ -86,6 +86,13 @@ const Question = ({ question, onChange, visible = false }) => {
       </div>
     )
   );
+};
+
+Question.propTypes = {
+  question: PropTypes.object,
+  onChange: PropTypes.func,
+  visible: PropTypes.bool,
+  type: PropTypes.number,
 };
 
 export default memo(Question);

@@ -11,6 +11,7 @@ import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Droppable } from 'react-beautiful-dnd';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const DropDown = ({
   className = {},
@@ -222,6 +223,24 @@ const DropDown = ({
       )}
     </div>
   );
+};
+
+DropDown.propTypes = {
+  className: PropTypes.object,
+  list: PropTypes.arrayOf(PropTypes.object),
+  title: PropTypes.string,
+  dropDownId: PropTypes.number,
+  isChangeable: PropTypes.bool,
+  onSelect: PropTypes.func,
+  onDelete: PropTypes.func,
+  onChangeElement: PropTypes.func,
+  defaultSelected: PropTypes.arrayOf(PropTypes.number),
+  onAddElement: PropTypes.func,
+  onDeleteElement: PropTypes.func,
+  onEditName: PropTypes.func,
+  onDragEnd: PropTypes.func,
+  isMobile: PropTypes.bool,
+  isSingleSelect: PropTypes.bool,
 };
 
 export default memo(DropDown);

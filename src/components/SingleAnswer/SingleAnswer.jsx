@@ -1,6 +1,7 @@
 import Checkbox from '@components/Checkbox/Checkbox';
 import { memo } from 'react';
 import styles from './SingleAnswer.module.css';
+import PropTypes from 'prop-types';
 
 const SingleAnswer = ({
   answers = [],
@@ -25,5 +26,11 @@ const SingleAnswer = ({
     })}
   </>
 );
+
+SingleAnswer.propTypes = {
+  answers: PropTypes.arrayOf(PropTypes.object),
+  currentAnswer: PropTypes.arrayOf(PropTypes.number),
+  onChange: PropTypes.func,
+};
 
 export default memo(SingleAnswer);

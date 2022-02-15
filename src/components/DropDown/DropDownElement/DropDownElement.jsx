@@ -7,6 +7,7 @@ import { MdOutlineDeleteOutline } from 'react-icons/md';
 import Button from '@components/Button/Button';
 import Input from '@components/Input/Input';
 import { Draggable } from 'react-beautiful-dnd';
+import PropTypes from 'prop-types';
 
 const DropDownElement = ({
   index,
@@ -108,6 +109,19 @@ const DropDownElement = ({
       />
     </div>
   );
+};
+
+DropDownElement.propTypes = {
+  index: PropTypes.number,
+  id: PropTypes.number,
+  defaultText: PropTypes.string,
+  onClick: PropTypes.func,
+  classNames: PropTypes.object,
+  isSelected: PropTypes.bool,
+  onChange: PropTypes.func,
+  onDelete: PropTypes.func,
+  isChangeable: PropTypes.bool,
+  isMobile: PropTypes.bool,
 };
 
 export default memo(DropDownElement);

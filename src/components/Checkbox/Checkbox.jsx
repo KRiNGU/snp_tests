@@ -1,6 +1,7 @@
 import styles from './Checkbox.module.css';
 import classnames from 'classnames';
 import { memo } from 'react';
+import PropTypes from 'prop-types';
 
 const Checkbox = ({
   checked = false,
@@ -21,5 +22,13 @@ const Checkbox = ({
     ></span>
   </label>
 );
+
+Checkbox.propTypes = {
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
+  text: PropTypes.string,
+  className: PropTypes.object,
+  isCircle: PropTypes.bool,
+};
 
 export default memo(Checkbox);

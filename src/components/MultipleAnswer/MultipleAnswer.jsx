@@ -1,6 +1,7 @@
 import Checkbox from '@components/Checkbox/Checkbox';
 import { memo } from 'react';
 import styles from './MultipleAnswer.module.css';
+import PropTypes from 'prop-types';
 
 const MultipleAnswer = ({
   answers = [],
@@ -24,5 +25,11 @@ const MultipleAnswer = ({
     })}
   </>
 );
+
+MultipleAnswer.propTypes = {
+  answers: PropTypes.arrayOf(PropTypes.object),
+  currentAnswer: PropTypes.arrayOf(PropTypes.number),
+  onChange: PropTypes.func,
+};
 
 export default memo(MultipleAnswer);

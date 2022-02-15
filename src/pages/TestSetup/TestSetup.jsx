@@ -209,7 +209,7 @@ const TestSetup = () => {
     ({ aId, name, isValid }) => {
       let newAnswers = JSON.parse(JSON.stringify(answers));
       let targetAnswer = newAnswers.find((answer) => answer.id === aId);
-      targetAnswer.name = name;
+      targetAnswer.name = name ? parseInt(name) : '';
       targetAnswer.isValid = isValid;
       setAnswers(newAnswers);
     },

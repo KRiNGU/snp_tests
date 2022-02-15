@@ -1,11 +1,12 @@
 import { memo } from 'react';
 import styles from './ListHeader.module.css';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
-const ListHeader = ({ additionalStyles, columnFilter, setColumnFilter }) => {
+const ListHeader = ({ classNames, columnFilter, setColumnFilter }) => {
   return (
     <ul className={styles.header}>
-      <li className={classnames(styles.columnHeader, additionalStyles.id)}>
+      <li className={classnames(styles.columnHeader, classNames.id)}>
         <button
           className={styles.buttonColumnFilter}
           disabled={columnFilter === 'id'}
@@ -15,7 +16,7 @@ const ListHeader = ({ additionalStyles, columnFilter, setColumnFilter }) => {
           ID
         </button>
       </li>
-      <li className={classnames(styles.columnHeader, additionalStyles.name)}>
+      <li className={classnames(styles.columnHeader, classNames.name)}>
         <button
           className={styles.buttonColumnFilter}
           disabled={columnFilter === 'name'}
@@ -25,12 +26,7 @@ const ListHeader = ({ additionalStyles, columnFilter, setColumnFilter }) => {
           Название
         </button>
       </li>
-      <li
-        className={classnames(
-          styles.columnHeader,
-          additionalStyles.description
-        )}
-      >
+      <li className={classnames(styles.columnHeader, classNames.description)}>
         <button
           className={styles.buttonColumnFilter}
           disabled={columnFilter === 'description'}
@@ -40,7 +36,7 @@ const ListHeader = ({ additionalStyles, columnFilter, setColumnFilter }) => {
           Описание
         </button>
       </li>
-      <li className={classnames(styles.columnHeader, additionalStyles.date)}>
+      <li className={classnames(styles.columnHeader, classNames.date)}>
         <button
           className={styles.buttonColumnFilter}
           disabled={columnFilter === 'date'}
@@ -52,6 +48,12 @@ const ListHeader = ({ additionalStyles, columnFilter, setColumnFilter }) => {
       </li>
     </ul>
   );
+};
+
+ListHeader.propTypes = {
+  classNames: PropTypes.object,
+  columnFilter: PropTypes.string,
+  setColumnFilter: PropTypes.func,
 };
 
 export default memo(ListHeader);

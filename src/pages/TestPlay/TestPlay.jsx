@@ -63,7 +63,7 @@ const TestPlay = () => {
     const userAnswersState = userAnswers.current;
     for (const questionId in userAnswersState) {
       const currentAnswer = userAnswersState[questionId];
-      if (typeof currentAnswer === 'string') {
+      if (typeof currentAnswer === 'number') {
         const rightAnswer = answers.find(
           (answer) => answer.questionId === parseInt(questionId)
         ).name;
@@ -138,6 +138,7 @@ const TestPlay = () => {
           onChange={(newAnswer) => handleAnswersChange(question?.id, newAnswer)}
           visible={currentQuestion === index}
           defaultValue={userAnswers.current[question?.id]}
+          type={question.type}
         />
       ))}
       {currentQuestion !== 0 && (

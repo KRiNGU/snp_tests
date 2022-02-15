@@ -4,6 +4,7 @@ import styles from './Input.module.css';
 import Button from '@components/Button/Button';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
 const Input = ({
   id,
@@ -130,4 +131,25 @@ const Input = ({
     </div>
   );
 };
+
+Input.propTypes = {
+  id: PropTypes.number,
+  disabled: PropTypes.bool,
+  inputText: PropTypes.string,
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  inputLabel: PropTypes.string,
+  input: PropTypes.string,
+  errorLabel: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  validator: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  giveFocus: PropTypes.bool,
+  isChangeable: PropTypes.bool,
+  container: PropTypes.string,
+  onDelete: PropTypes.func,
+  onEditInputName: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
 export default memo(Input);

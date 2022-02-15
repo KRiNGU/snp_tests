@@ -5,9 +5,10 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import { VscDebugStart } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const ListElement = ({
-  additionalStyles,
+  classNames,
   id,
   name,
   description,
@@ -35,25 +36,18 @@ const ListElement = ({
 
   return (
     <ul className={styles.element} onClick={handleClick}>
-      <li className={classnames(styles.elementColumn, additionalStyles.id)}>
-        {id}
-      </li>
-      <li className={classnames(styles.elementColumn, additionalStyles.name)}>
+      <li className={classnames(styles.elementColumn, classNames.id)}>{id}</li>
+      <li className={classnames(styles.elementColumn, classNames.name)}>
         {name}
       </li>
-      <li
-        className={classnames(
-          styles.elementColumn,
-          additionalStyles.description
-        )}
-      >
+      <li className={classnames(styles.elementColumn, classNames.description)}>
         {description}
       </li>
       <li
         className={classnames(
           styles.elementColumn,
           styles.date,
-          additionalStyles.date
+          classNames.date
         )}
       >
         {date}
@@ -74,6 +68,15 @@ const ListElement = ({
       </li>
     </ul>
   );
+};
+
+ListElement.propTypes = {
+  classNames: PropTypes.object,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  description: PropTypes.string,
+  date: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default memo(ListElement);

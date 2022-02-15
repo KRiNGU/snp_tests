@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import Input from '@components/Input/Input';
 import Button from '@components/Button/Button';
 import { AiOutlineEdit } from 'react-icons/ai';
+import PropTypes from 'prop-types';
 
 const CenteredPaper = ({
   defaultValue,
@@ -94,6 +95,15 @@ const CenteredPaper = ({
       )}
     </div>
   );
+};
+
+CenteredPaper.propTypes = {
+  defaultValue: PropTypes.string,
+  className: PropTypes.object,
+  isEditable: PropTypes.bool,
+  onChange: PropTypes.func,
+  payload: PropTypes.string,
+  isMobile: PropTypes.bool,
 };
 
 export default memo(CenteredPaper);

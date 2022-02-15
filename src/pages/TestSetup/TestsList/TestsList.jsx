@@ -4,6 +4,7 @@ import { memo, useCallback } from 'react';
 import styles from './TestsList.module.css';
 import { sortByParameter } from '@utils/utils';
 import { validateInputQuestion } from '@utils/errorCodes';
+import PropTypes from 'prop-types';
 
 const TestsList = ({
   answers = [],
@@ -138,6 +139,19 @@ const TestsList = ({
       })}
     </div>
   );
+};
+
+TestsList.propTypes = {
+  answers: PropTypes.arrayOf(PropTypes.object),
+  questions: PropTypes.arrayOf(PropTypes.object),
+  onDeleteQuestion: PropTypes.func,
+  onDeleteAnswer: PropTypes.func,
+  onAddAnswer: PropTypes.func,
+  onEditAnswer: PropTypes.func,
+  onEditQuestionName: PropTypes.func,
+  onToggleRightAnswer: PropTypes.func,
+  onChangeAnswersOrder: PropTypes.func,
+  isMobile: PropTypes.bool,
 };
 
 export default memo(TestsList);

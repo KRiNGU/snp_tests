@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import styles from './SecondaryButton.module.css';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const SecondaryButton = ({ disabled = false, onClick, className, text }) => (
   <button
@@ -11,5 +12,12 @@ const SecondaryButton = ({ disabled = false, onClick, className, text }) => (
     {text}
   </button>
 );
+
+SecondaryButton.propTypes = {
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  text: PropTypes.string,
+};
 
 export default memo(SecondaryButton);

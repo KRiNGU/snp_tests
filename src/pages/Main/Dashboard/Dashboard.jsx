@@ -1,5 +1,6 @@
 import styles from './Dashboard.module.css';
 import { memo, useCallback } from 'react';
+import PropTypes from 'prop-types';
 
 const Dashboard = ({
   login,
@@ -49,6 +50,15 @@ const Dashboard = ({
       </ul>
     </div>
   );
+};
+
+Dashboard.propTypes = {
+  login: PropTypes.string,
+  isAdmin: PropTypes.bool,
+  filter: PropTypes.string,
+  setFilter: PropTypes.func,
+  onLogout: PropTypes.func,
+  onCreateTest: PropTypes.func,
 };
 
 export default memo(Dashboard);
