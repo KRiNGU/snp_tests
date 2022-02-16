@@ -156,7 +156,7 @@ const TestSetup = () => {
       {
         id: qId,
         name: 'Введите вопрос',
-        rightAnswerId: [],
+        rightAnswerId: [qId + 1],
         type: 1,
         testId: id,
       },

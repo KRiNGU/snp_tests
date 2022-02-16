@@ -94,36 +94,38 @@ const Input = ({
           onBlur={handleBlurName}
         />
       )}
-      <input
-        type="text"
-        value={value}
-        className={classnames(styles.input, input)}
-        disabled={disabled}
-        placeholder={placeholder}
-        onChange={handleChange}
-        onKeyDown={onKeyDown}
-        onBlur={onBlur}
-        ref={ref}
-      />
+      <div className={styles.inputContainer}>
+        <input
+          type="text"
+          value={value}
+          className={classnames(styles.input, input)}
+          disabled={disabled}
+          placeholder={placeholder}
+          onChange={handleChange}
+          onKeyDown={onKeyDown}
+          onBlur={onBlur}
+          ref={ref}
+        />
+        {isChangeable && (
+          <>
+            <Button
+              className={classnames(styles.button, styles.edit)}
+              onClick={toggleEditMode}
+              text={<AiOutlineEdit className={styles.editIcon} />}
+            />
+            <Button
+              className={classnames(styles.button, styles.delete)}
+              onClick={handleDelete}
+              text={<MdOutlineDeleteOutline className={styles.deleteIcon} />}
+            />
+          </>
+        )}
+      </div>
 
       {error !== 0 && (
         <label className={classnames(styles.errorLabel, errorLabel)}>
           {error}
         </label>
-      )}
-      {isChangeable && (
-        <>
-          <Button
-            className={classnames(styles.button, styles.edit)}
-            onClick={toggleEditMode}
-            text={<AiOutlineEdit className={styles.editIcon} />}
-          />
-          <Button
-            className={classnames(styles.button, styles.delete)}
-            onClick={handleDelete}
-            text={<MdOutlineDeleteOutline className={styles.deleteIcon} />}
-          />
-        </>
       )}
     </div>
   );

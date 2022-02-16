@@ -50,6 +50,12 @@ const DropDown = ({
     (id) => {
       let newSelected = selected;
       for (let i = 0; i < newSelected.length; i++) {
+        if (isSingleSelect) {
+          newSelected = [id];
+          setSelected(newSelected);
+          onSelect({ newSelected, dropDownId });
+          return;
+        }
         if (id === newSelected[i]) {
           newSelected = newSelected.filter((item) => item !== id);
           setSelected(newSelected);
@@ -57,11 +63,7 @@ const DropDown = ({
           return;
         }
       }
-      if (!isSingleSelect) {
-        newSelected = [...newSelected, id];
-      } else {
-        newSelected = [id];
-      }
+      newSelected = [...newSelected, id];
       setSelected(newSelected);
       onSelect({ newSelected, dropDownId });
     },

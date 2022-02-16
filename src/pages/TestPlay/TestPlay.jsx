@@ -33,16 +33,23 @@ const TestPlay = () => {
       questions.forEach((question) => {
         userAnswers.current = {
           ...userAnswers.current,
-          [question.id]: null,
+          [question.id]: question.type === 0 ? '' : null,
         };
       }),
     [questions]
   );
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [isMoveAvailable, setIsMoveAvailable] = useState(false);
 
-  const handleAnswersChange = useCallback((questionId, newAnswer) => {
-    userAnswers.current[questionId] = newAnswer;
-  }, []);
+  const handleAnswersChange = useCallback(
+    (questionId, newAnswer) => {
+      userAnswers.current[questionId] = newAnswer;
+      setIsMoveAvailable(
+        userAnswers.current[questions[currentQuestion]?.id] !== ''
+      );
+    },
+    [questions, currentQuestion, setIsMoveAvailable]
+  );
 
   const handlePreviousQuestion = useCallback(() => {
     setCurrentQuestion(currentQuestion - 1);
@@ -146,6 +153,7 @@ const TestPlay = () => {
           text={<ImArrowLeft />}
           onClick={handlePreviousQuestion}
           className={classnames(styles.leftButton, styles.arrowButton)}
+          disabled={!isMoveAvailable}
         />
       )}
       <Button
@@ -158,12 +166,14 @@ const TestPlay = () => {
         }
         className={styles.endButton}
         onClick={handleFinishTest}
+        disabled={!isMoveAvailable}
       />
       {currentQuestion !== questions.length - 1 && (
         <Button
           text={<ImArrowRight />}
           onClick={handleNextQuestion}
           className={classnames(styles.rightButton, styles.arrowButton)}
+          disabled={!isMoveAvailable}
         />
       )}
     </div>

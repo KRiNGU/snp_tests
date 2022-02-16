@@ -21,6 +21,10 @@
   width: 100%;
 }
 
+.inputContainer {
+  position: relative;
+}
+
 .input {
   line-height: 30px;
   border-radius: 5px;

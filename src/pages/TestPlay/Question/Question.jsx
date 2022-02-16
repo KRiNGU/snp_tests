@@ -8,7 +8,7 @@ import styles from './Question.module.css';
 import PropTypes from 'prop-types';
 
 const Question = ({ question, onChange, visible = false, type }) => {
-  const [answer, setAnswer] = useState(type === 0 ? 0 : null);
+  const [answer, setAnswer] = useState(type === 0 ? '' : null);
   const answers = useSelector((state) =>
     state.tests.currentTest.answers.filter(
       (answer) => answer.questionId === question?.id
@@ -17,8 +17,8 @@ const Question = ({ question, onChange, visible = false, type }) => {
 
   const handleNumberChange = useCallback(
     ({ value }) => {
-      setAnswer(value ? parseInt(value) : 0);
-      onChange(value ? parseInt(value) : 0);
+      setAnswer(value ? parseInt(value) : '');
+      onChange(value ? parseInt(value) : '');
     },
     [setAnswer, onChange]
   );
