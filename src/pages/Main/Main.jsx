@@ -19,7 +19,6 @@ const Main = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (page !== parseInt(page).toString()) {
-      console.log(parseInt(page));
       navigate(`/main/${parseInt(page)}`);
     }
   }, [navigate, page]);
