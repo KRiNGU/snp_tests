@@ -16,6 +16,13 @@ const Main = () => {
   const isAdmin = useSelector((state) => state.user.isAdmin);
   const dispatch = useDispatch();
   let { page } = useParams();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (page !== parseInt(page).toString()) {
+      console.log(parseInt(page));
+      navigate(`/main/${parseInt(page)}`);
+    }
+  }, [navigate, page]);
   page = parseInt(page);
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState('date');
@@ -32,7 +39,6 @@ const Main = () => {
   const tests = useSelector((state) =>
     state.tests.items.filter((test) => test.name.includes(filter))
   );
-  const navigate = useNavigate();
   useEffect(() => {
     if (login === '') {
       navigate('/login');
