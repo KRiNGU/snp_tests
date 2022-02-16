@@ -27,6 +27,7 @@ const Input = ({
 }) => {
   const [error, setError] = useState(0);
   const [name, setName] = useState(inputText);
+  console.log(value);
   const [isEditMode, setIsEditMode] = useState(false);
   const ref = useRef();
 

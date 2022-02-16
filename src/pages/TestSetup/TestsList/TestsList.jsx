@@ -19,12 +19,13 @@ const TestsList = ({
   isMobile = false,
 }) => {
   const handleEditAnswer = useCallback(
-    ({ id, value, isValid = true }) => {
-      const newValue = parseInt(value);
+    ({ id, value }) => {
+      let newValue = parseInt(value);
+      newValue = !isNaN(newValue) ? newValue : '';
       onEditAnswer({
         aId: id,
-        name: !isNaN(newValue) ? newValue : '',
-        isValid,
+        name: newValue,
+        isValid: newValue !== '',
       });
     },
     [onEditAnswer]

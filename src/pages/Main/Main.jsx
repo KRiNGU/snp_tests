@@ -10,7 +10,6 @@ import styles from './Main.module.css';
 import TestList from './TestList/TestList';
 import { BiLogOut, BiListPlus } from 'react-icons/bi';
 import classnames from 'classnames';
-import NotFound from '@components/NotFound/NotFound';
 
 const Main = () => {
   const login = useSelector((state) => state.user.login);
@@ -91,13 +90,9 @@ const Main = () => {
     [setSort]
   );
 
-  if (tests.length === 0 && !filter) {
-    return <></>;
-  }
-
-  if (page > lastPage && !filter) {
-    return <NotFound />;
-  }
+  const moveToLastPage = useCallback(() => {
+    navigate(`/main/${lastPage}`);
+  }, [navigate, lastPage]);
 
   return (
     <div className={styles.container}>
@@ -145,23 +140,34 @@ const Main = () => {
         onElementClick={handleElementClick}
         onSetColumnFilter={handleSetColumnFilter}
       />
-      <ul className={styles.pages}>
-        {page !== 1 && (
+      {page <= lastPage && (
+        <ul className={styles.pages}>
+          {page !== 1 && (
+            <Button
+              text={page - 1}
+              className={styles.page}
+              onClick={decrementPage}
+            />
+          )}
+          <Button text={page} className={styles.page} disabled />
+          {page < lastPage && (
+            <Button
+              text={page + 1}
+              className={styles.page}
+              onClick={incrementPage}
+            />
+          )}
+        </ul>
+      )}
+      {page > lastPage && (
+        <ul className={styles.pages}>
           <Button
-            text={page - 1}
+            text={lastPage}
             className={styles.page}
-            onClick={decrementPage}
+            onClick={moveToLastPage}
           />
-        )}
-        <Button text={page} className={styles.page} disabled />
-        {page < lastPage && (
-          <Button
-            text={page + 1}
-            className={styles.page}
-            onClick={incrementPage}
-          />
-        )}
-      </ul>
+        </ul>
+      )}
     </div>
   );
 };
