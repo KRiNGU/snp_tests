@@ -209,8 +209,9 @@ const TestSetup = () => {
     ({ aId, name, isValid }) => {
       let newAnswers = JSON.parse(JSON.stringify(answers));
       let targetAnswer = newAnswers.find((answer) => answer.id === aId);
-      targetAnswer.name = name ? parseInt(name) : '';
-      targetAnswer.isValid = isValid;
+      const newName = name ? (isNaN(parseInt(name)) ? '' : parseInt(name)) : '';
+      targetAnswer.name = newName;
+      targetAnswer.isValid = newName !== '';
       setAnswers(newAnswers);
     },
     [answers, setAnswers]
