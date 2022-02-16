@@ -12,25 +12,25 @@ const Login = () => {
   const navigate = useNavigate();
   const [login, setLogin] = useState(localStorage.getItem('login'));
   const [password, setPassword] = useState('');
-  const [isLoginValid, setIsLoginValid] = useState(login !== '');
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [loginError, setLoginError] = useState(validateName(login));
+  const [passwordError, setPasswordError] = useState('');
   const error = useSelector((state) => state.user.error);
   const dispatch = useDispatch();
 
   const handleChangeLogin = useCallback(
-    ({ value, isValid }) => {
+    ({ value }) => {
       setLogin(value);
-      setIsLoginValid(isValid);
+      setLoginError(validateName(value));
     },
-    [setLogin, setIsLoginValid]
+    [setLogin, setLoginError]
   );
 
   const handleChangePassword = useCallback(
-    ({ value, isValid }) => {
+    ({ value }) => {
       setPassword(value);
-      setIsPasswordValid(isValid);
+      setPasswordError(validatePassword(value));
     },
-    [setPassword, setIsPasswordValid]
+    [setPassword, setPasswordError]
   );
 
   const handleSignIn = useCallback(() => {
@@ -77,7 +77,7 @@ const Login = () => {
           text="Войти"
           className={styles.loginButton}
           onClick={handleSignIn}
-          disabled={!isPasswordValid || !isLoginValid}
+          disabled={loginError !== '' || passwordError !== ''}
         />
         <label className={styles.errorLabel}>{userErrors[error]}</label>
         <SecondaryButton

@@ -114,6 +114,10 @@ const TestsList = ({
               handleEditQuestionName({ id: question.id, value })
             }
             onDelete={() => handleDeleteQuestion(question.id)}
+            error={validateInputQuestion(
+              answers.find((answer) => question.rightAnswerId === answer.id)
+                ?.name
+            )}
             giveFocus
             isChangeable
           />

@@ -14,26 +14,26 @@ const Register = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
-  const [isLoginValid, setIsLoginValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const error = useSelector((state) => state.user.error);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleChangeLogin = useCallback(
-    ({ value, isValid }) => {
+    ({ value }) => {
+      setLoginError(validateName(value));
       setLogin(value);
-      setIsLoginValid(isValid);
     },
-    [setLogin, setIsLoginValid]
+    [setLogin, setLoginError]
   );
 
   const handleChangePassword = useCallback(
-    ({ value, isValid }) => {
+    ({ value }) => {
       setPassword(value);
-      setIsPasswordValid(isValid);
+      setPasswordError(validatePassword(value));
     },
-    [setPassword, setIsPasswordValid]
+    [setPassword, setPasswordError]
   );
 
   const handleChangeAdminPassword = useCallback(
@@ -80,7 +80,7 @@ const Register = () => {
               value={login}
               onChange={handleChangeLogin}
               inputText="Логин"
-              validator={validateName}
+              error={loginError}
             />
           </li>
           <li className={styles.input}>
@@ -91,8 +91,8 @@ const Register = () => {
               placeholder="Введите пароль"
               value={password}
               onChange={handleChangePassword}
-              validator={validatePassword}
               inputText="Пароль"
+              error={passwordError}
             />
           </li>
           {isAdmin && (
@@ -118,7 +118,7 @@ const Register = () => {
             text="Зарегистрироваться"
             className={styles.loginButton}
             onClick={hangleRegisterUser}
-            disabled={!isLoginValid || !isPasswordValid}
+            disabled={loginError !== '' || passwordError !== ''}
           />
           <label className={styles.errorLabel}>{userErrors[error]}</label>
           <SecondaryButton

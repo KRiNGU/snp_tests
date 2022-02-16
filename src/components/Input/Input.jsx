@@ -15,8 +15,8 @@ const Input = ({
   inputLabel,
   input,
   errorLabel,
+  error = '',
   value = '',
-  validator = () => {},
   onKeyDown = () => {},
   giveFocus = false,
   isChangeable = false,
@@ -25,19 +25,15 @@ const Input = ({
   onEditInputName,
   onBlur = () => {},
 }) => {
-  const [error, setError] = useState(0);
   const [name, setName] = useState(inputText);
-  console.log(value);
   const [isEditMode, setIsEditMode] = useState(false);
   const ref = useRef();
 
   const handleChange = useCallback(
     (e) => {
-      const error = validator(e.target.value);
-      setError(error);
-      onChange({ id, value: e.target.value, isValid: error === 0 });
+      onChange({ id, value: e.target.value });
     },
-    [setError, validator, onChange, id]
+    [onChange, id]
   );
 
   const toggleEditMode = useCallback(
