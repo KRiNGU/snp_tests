@@ -48,31 +48,29 @@ const Login = () => {
 
   return (
     <div className={styles.background}>
-      <ul className={styles.inputs}>
-        <li className={styles.input}>
-          <Input
-            input={styles.field}
-            inputLabel={styles.inputLabel}
-            errorLabel={styles.errorLabel}
-            placeholder="Введите логин"
-            value={login}
-            onChange={handleChangeLogin}
-            inputText="Логин"
-            validator={validateName}
-          />
-        </li>
-        <li className={styles.input}>
-          <Input
-            input={styles.field}
-            inputLabel={styles.inputLabel}
-            errorLabel={styles.errorLabel}
-            placeholder="Введите пароль"
-            value={password}
-            onChange={handleChangePassword}
-            inputText="Пароль"
-            validator={validatePassword}
-          />
-        </li>
+      <form className={styles.inputs}>
+        <Input
+          input={styles.field}
+          inputLabel={styles.inputLabel}
+          errorLabel={styles.errorLabel}
+          placeholder="Введите логин"
+          value={login}
+          onChange={handleChangeLogin}
+          inputText="Логин"
+          validator={validateName}
+          container={styles.input}
+        />
+        <Input
+          container={styles.input}
+          input={styles.field}
+          inputLabel={styles.inputLabel}
+          errorLabel={styles.errorLabel}
+          placeholder="Введите пароль"
+          value={password}
+          onChange={handleChangePassword}
+          inputText="Пароль"
+          validator={validatePassword}
+        />
         <Button
           text="Войти"
           className={styles.loginButton}
@@ -85,7 +83,7 @@ const Login = () => {
           className={styles.loginButton}
           onClick={handleRegisterClick}
         />
-      </ul>
+      </form>
     </div>
   );
 };

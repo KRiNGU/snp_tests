@@ -12,12 +12,12 @@ const Checkbox = ({
 }) => (
   <label className={classnames(className.container, styles.container)}>
     {text}
-    <input type="checkbox" onChange={() => onChange()} checked={checked} />
+    <input type="checkbox" onChange={onChange} checked={checked} />
     <span
       className={classnames(
         className.checkmark,
         styles.checkmark,
-        isCircle ? styles.circleCheckmark : ''
+        isCircle && styles.circleCheckmark
       )}
     ></span>
   </label>

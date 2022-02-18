@@ -70,43 +70,40 @@ const Register = () => {
   return (
     <div className={styles.container}>
       <div className={styles.background}>
-        <ul className={styles.inputs}>
-          <li className={styles.input}>
-            <Input
-              inputLabel={styles.inputLabel}
-              input={styles.field}
-              errorLabel={styles.errorLabel}
-              placeholder="Введите логин"
-              value={login}
-              onChange={handleChangeLogin}
-              inputText="Логин"
-              error={loginError}
-            />
-          </li>
-          <li className={styles.input}>
-            <Input
-              inputLabel={styles.inputLabel}
-              input={styles.field}
-              errorLabel={styles.errorLabel}
-              placeholder="Введите пароль"
-              value={password}
-              onChange={handleChangePassword}
-              inputText="Пароль"
-              error={passwordError}
-            />
-          </li>
+        <form className={styles.inputs}>
+          <Input
+            inputLabel={styles.inputLabel}
+            input={styles.field}
+            errorLabel={styles.errorLabel}
+            placeholder="Введите логин"
+            value={login}
+            onChange={handleChangeLogin}
+            inputText="Логин"
+            error={loginError}
+            container={styles.input}
+          />
+          <Input
+            inputLabel={styles.inputLabel}
+            input={styles.field}
+            errorLabel={styles.errorLabel}
+            placeholder="Введите пароль"
+            value={password}
+            onChange={handleChangePassword}
+            inputText="Пароль"
+            error={passwordError}
+            container={styles.input}
+          />
           {isAdmin && (
-            <li className={styles.input}>
-              <Input
-                inputLabel={styles.inputLabel}
-                input={styles.field}
-                errorLabel={styles.errorLabel}
-                placeholder="Введите пароль администратора"
-                value={adminPassword}
-                onChange={handleChangeAdminPassword}
-                inputText="Пароль администратора"
-              />
-            </li>
+            <Input
+              inputLabel={styles.inputLabel}
+              input={styles.field}
+              errorLabel={styles.errorLabel}
+              placeholder="Введите пароль администратора"
+              value={adminPassword}
+              onChange={handleChangeAdminPassword}
+              inputText="Пароль администратора"
+              container={styles.input}
+            />
           )}
           <Checkbox
             text={'Зарегистрироваться как администратор'}
@@ -126,7 +123,7 @@ const Register = () => {
             className={styles.loginButton}
             onClick={handleLoginClick}
           />
-        </ul>
+        </form>
       </div>
     </div>
   );
