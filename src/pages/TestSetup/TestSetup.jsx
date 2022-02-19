@@ -355,9 +355,7 @@ const TestSetup = () => {
         }
         className={classnames(styles.controlButton, styles.saveButton)}
         disabled={
-          !name ||
-          !description ||
-          !answers.reduce((result, answer) => result && answer.isValid, true)
+          !name || !description || !answers.every((answer) => answer.isValid)
         }
       />
       <Button

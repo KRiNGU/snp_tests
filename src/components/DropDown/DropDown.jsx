@@ -63,7 +63,7 @@ const DropDown = ({
           return;
         }
       }
-      newSelected = [...newSelected, id];
+      newSelected.push(id);
       setSelected(newSelected);
       onSelect({ newSelected, dropDownId });
     },
@@ -74,7 +74,7 @@ const DropDown = ({
     (e) => {
       if (e.key === 'Enter') {
         setIsEditMode(false);
-        if (!e.target.value) {
+        if (!e.currentTarget.value) {
           onDelete(dropDownId);
         }
       }
