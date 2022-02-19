@@ -35,15 +35,17 @@ const ListElement = ({
   );
 
   return (
-    <ul className={styles.element} onClick={handleClick}>
-      <li className={classnames(styles.elementColumn, classNames.id)}>{id}</li>
-      <li className={classnames(styles.elementColumn, classNames.name)}>
+    <div className={styles.element} onClick={handleClick}>
+      <div className={classnames(styles.elementColumn, classNames.id)}>
+        {id}
+      </div>
+      <div className={classnames(styles.elementColumn, classNames.name)}>
         {name}
-      </li>
-      <li className={classnames(styles.elementColumn, classNames.description)}>
+      </div>
+      <div className={classnames(styles.elementColumn, classNames.description)}>
         {description}
-      </li>
-      <li
+      </div>
+      <div
         className={classnames(
           styles.elementColumn,
           styles.date,
@@ -65,8 +67,8 @@ const ListElement = ({
         >
           <VscDebugStart size={15} />
         </button>
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 };
 

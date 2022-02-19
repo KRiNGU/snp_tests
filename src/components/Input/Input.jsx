@@ -24,6 +24,7 @@ const Input = ({
   onDelete,
   onEditInputName,
   onBlur = () => {},
+  type = 'text',
 }) => {
   const [name, setName] = useState(inputText);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -96,7 +97,7 @@ const Input = ({
       )}
       <div className={styles.inputContainer}>
         <input
-          type="text"
+          type={type}
           value={value}
           className={classnames(styles.input, input)}
           disabled={disabled}

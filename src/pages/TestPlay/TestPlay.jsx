@@ -122,19 +122,19 @@ const TestPlay = () => {
       {isFinishModalOpened && (
         <Modal
           title="Закончить тест?"
-          firstButtonText="Закончить"
-          secondButtonText="Вернуться"
-          firstButtonClickAction={handleAcceptFinish}
-          secondButtonClickAction={handleDeclineFinish}
+          submitButtonText="Закончить"
+          exitButtonText="Вернуться"
+          onSubmitButtonClick={handleAcceptFinish}
+          onExitButtonClick={handleDeclineFinish}
         />
       )}
       {isResultedModalOpened && (
         <Modal
           title={`Итоговый результат: ${result}`}
-          firstButtonText="Перепройти тест"
-          secondButtonText="Выйти"
-          firstButtonClickAction={handleRestart}
-          secondButtonClickAction={handleExit}
+          submitButtonText="Перепройти тест"
+          exitButtonText="Выйти"
+          onSubmitButtonClick={handleRestart}
+          onExitButtonClick={handleExit}
         />
       )}
       <h1 className={styles.title}>Вопрос {currentQuestion + 1}</h1>

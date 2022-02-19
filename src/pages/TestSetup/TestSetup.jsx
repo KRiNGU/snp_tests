@@ -55,7 +55,6 @@ const TestSetup = () => {
     setQuestions,
     currentTest.questions,
   ]);
-  window.onscroll = () => {};
 
   const handleChangeTestName = useCallback(
     ({ value }) => {
@@ -75,7 +74,7 @@ const TestSetup = () => {
     navigate(-1);
   }, [navigate]);
 
-  const handleDelete = (e) => {
+  const handleDelete = () => {
     disableScroll();
     setIsDeleteModalOpened(true);
   };
@@ -272,19 +271,19 @@ const TestSetup = () => {
       {isDeleteModalOpened && (
         <Modal
           title="Удалить?"
-          firstButtonText="Удалить"
-          secondButtonText="Отмена"
-          firstButtonClickAction={handleAcceptDelete}
-          secondButtonClickAction={handleDeclineDelete}
+          submitButtonText="Удалить"
+          exitButtonText="Отмена"
+          onSubmitButtonClick={handleAcceptDelete}
+          onExitButtonClick={handleDeclineDelete}
         />
       )}
       {isSaveModalOpened && (
         <Modal
           title="Сохранить?"
-          firstButtonText="Сохранить"
-          secondButtonText="Отмена"
-          firstButtonClickAction={handleAcceptSave}
-          secondButtonClickAction={handleDeclineSave}
+          submitButtonText="Сохранить"
+          exitButtonText="Отмена"
+          onSubmitButtonClick={handleAcceptSave}
+          onExitButtonClick={handleDeclineSave}
         />
       )}
       <Button

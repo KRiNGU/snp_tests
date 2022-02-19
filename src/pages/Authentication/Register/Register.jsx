@@ -92,6 +92,7 @@ const Register = () => {
             inputText="Пароль"
             error={passwordError}
             container={styles.input}
+            type="password"
           />
           {isAdmin && (
             <Input

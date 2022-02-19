@@ -1,6 +1,6 @@
 import { sortByParameter } from '@utils/utils';
 import { memo, useCallback, useState } from 'react';
-import ListElement from './ListElement.jsx/ListElement';
+import ListElement from './ListElement/ListElement';
 import ListHeader from './ListHeader/ListHeader';
 import styles from './TestList.module.css';
 import PropTypes from 'prop-types';

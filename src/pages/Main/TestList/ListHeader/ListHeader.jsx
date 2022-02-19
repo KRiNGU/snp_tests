@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 
 const ListHeader = ({ classNames, columnFilter, setColumnFilter }) => {
   return (
-    <ul className={styles.header}>
-      <li className={classnames(styles.columnHeader, classNames.id)}>
+    <div className={styles.header}>
+      <div className={classnames(styles.columnHeader, classNames.id)}>
         <button
           className={styles.buttonColumnFilter}
           disabled={columnFilter === 'id'}
@@ -15,8 +15,8 @@ const ListHeader = ({ classNames, columnFilter, setColumnFilter }) => {
         >
           ID
         </button>
-      </li>
-      <li className={classnames(styles.columnHeader, classNames.name)}>
+      </div>
+      <div className={classnames(styles.columnHeader, classNames.name)}>
         <button
           className={styles.buttonColumnFilter}
           disabled={columnFilter === 'name'}
@@ -25,8 +25,8 @@ const ListHeader = ({ classNames, columnFilter, setColumnFilter }) => {
         >
           Название
         </button>
-      </li>
-      <li className={classnames(styles.columnHeader, classNames.description)}>
+      </div>
+      <div className={classnames(styles.columnHeader, classNames.description)}>
         <button
           className={styles.buttonColumnFilter}
           disabled={columnFilter === 'description'}
@@ -35,8 +35,8 @@ const ListHeader = ({ classNames, columnFilter, setColumnFilter }) => {
         >
           Описание
         </button>
-      </li>
-      <li className={classnames(styles.columnHeader, classNames.date)}>
+      </div>
+      <div className={classnames(styles.columnHeader, classNames.date)}>
         <button
           className={styles.buttonColumnFilter}
           disabled={columnFilter === 'date'}
@@ -45,8 +45,8 @@ const ListHeader = ({ classNames, columnFilter, setColumnFilter }) => {
         >
           Дата создания
         </button>
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 };
 

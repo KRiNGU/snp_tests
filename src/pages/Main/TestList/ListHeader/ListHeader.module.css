@@ -1,5 +1,4 @@
 .header {
-  list-style-type: none;
   padding: 0;
   margin: 0;
   display: flex;
@@ -52,6 +51,8 @@
 .buttonColumnFilter:disabled {
   cursor: default;
   border-bottom: none;
+  position: relative;
+  right: 3px;
 }
 
 .buttonColumnFilter:disabled::after {

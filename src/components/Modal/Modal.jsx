@@ -8,11 +8,10 @@ import PropTypes from 'prop-types';
 
 const Modal = ({
   title,
-  firstButtonText,
-  secondButtonText = null,
-  firstButtonClickAction = () => {},
-  secondButtonClickAction = () => {},
-  onClose = secondButtonClickAction,
+  submitButtonText,
+  exitButtonText = null,
+  onSubmitButtonClick = () => {},
+  onExitButtonClick = () => {},
 }) => {
   const ref = useRef();
   useEffect(() => {
@@ -22,19 +21,19 @@ const Modal = ({
   const handleKeyDown = useCallback(
     (e) => {
       if (e.key === 'Escape') {
-        onClose();
+        onExitButtonClick();
       }
     },
-    [onClose]
+    [onExitButtonClick]
   );
 
   const handleClick = useCallback(
     (e) => {
       if (e.currentTarget === e.target) {
-        onClose();
+        onExitButtonClick();
       }
     },
-    [onClose]
+    [onExitButtonClick]
   );
 
   return (
@@ -49,21 +48,23 @@ const Modal = ({
         <Button
           className={styles.closeButton}
           text={<RiCloseFill size={20} className={styles.closeButtonIcon} />}
-          onClick={onClose}
+          onClick={onExitButtonClick}
         />
         <h2 className={styles.header}>{title}</h2>
-        <Button
-          className={classnames(styles.button, styles.firstButton)}
-          text={firstButtonText}
-          onClick={firstButtonClickAction}
-        />
-        {secondButtonText && (
+        <div className={styles.buttons}>
           <Button
-            className={classnames(styles.button, styles.secondButton)}
-            text={secondButtonText}
-            onClick={secondButtonClickAction}
+            className={classnames(styles.button, styles.firstButton)}
+            text={submitButtonText}
+            onClick={onSubmitButtonClick}
           />
-        )}
+          {exitButtonText && (
+            <Button
+              className={classnames(styles.button, styles.secondButton)}
+              text={exitButtonText}
+              onClick={onExitButtonClick}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -10,10 +10,12 @@
 
 .content {
   position: absolute;
-  top: calc(50% - 75px);
-  left: calc(50% - 200px);
+  padding: 0 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 150px;
-  width: 400px;
+  width: clamp(200px, 84vw, 400px);
   background-color: white;
   border-radius: 10px;
   text-align: center;
@@ -23,18 +25,14 @@
   margin-top: 40px;
 }
 
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .button {
-  position: absolute;
-  bottom: 20px;
   padding: 0 30px;
-}
-
-.firstButton {
-  left: 50px;
-}
-
-.secondButton {
-  right: 50px;
 }
 
 .closeButtonIcon:hover {
@@ -64,4 +62,16 @@
 
 .closeButton:active {
   background-color: transparent;
+}
+
+@media screen and (max-width: 480px) {
+  .content {
+    height: 250px;
+  }
+  .buttons {
+    position: relative;
+    flex-direction: column;
+    height: 100px;
+    margin-top: 50px;
+  }
 }

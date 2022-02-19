@@ -39,7 +39,7 @@ const Main = () => {
     state.tests.items.filter((test) => test.name.includes(filter))
   );
   useEffect(() => {
-    if (login === '') {
+    if (!login) {
       navigate('/login');
     }
   });
@@ -104,10 +104,10 @@ const Main = () => {
       {isPlayModalOpened && (
         <Modal
           title="Пройти тест?"
-          firstButtonText="Начать"
-          secondButtonText="Отмена"
-          firstButtonClickAction={handleAcceptPlay}
-          secondButtonClickAction={handleDeclinePlay}
+          submitButtonText="Начать"
+          exitButtonText="Отмена"
+          onSubmitButtonClick={handleAcceptPlay}
+          onExitButtonClick={handleDeclinePlay}
         />
       )}
       <input

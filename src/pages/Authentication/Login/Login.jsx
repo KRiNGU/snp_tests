@@ -70,6 +70,7 @@ const Login = () => {
           onChange={handleChangePassword}
           inputText="Пароль"
           validator={validatePassword}
+          type="password"
         />
         <Button
           text="Войти"
